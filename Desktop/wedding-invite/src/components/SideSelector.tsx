@@ -60,11 +60,9 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
             </p>
           </div>
           <div className="mt-8 flex justify-center">
-            <img
-              src="/assets/sized_wc_connor-BqX07kO4.png"
-              alt="Prateek"
-              className="w-40 sm:w-48 h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-            />
+            <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full border-2 border-gold/40 bg-gradient-to-br from-[#f0f6f3] to-[#e8ede6] flex items-center justify-center shadow-sm group-hover:border-gold/70 group-hover:shadow-md transition-all duration-500">
+              <span className="font-mea-culpa text-7xl sm:text-8xl text-secondary leading-none select-none">P</span>
+            </div>
           </div>
         </button>
 
@@ -92,11 +90,9 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
             </p>
           </div>
           <div className="mt-8 flex justify-center">
-            <img
-              src="/assets/sized_wc_chhavi-BbdVXYnb.png"
-              alt="Mahek"
-              className="w-40 sm:w-48 h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-            />
+            <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full border-2 border-gold/40 bg-gradient-to-br from-[#f6f2ea] to-[#f0ebe0] flex items-center justify-center shadow-sm group-hover:border-gold/70 group-hover:shadow-md transition-all duration-500">
+              <span className="font-mea-culpa text-7xl sm:text-8xl text-secondary leading-none select-none">M</span>
+            </div>
           </div>
         </button>
       </div>
