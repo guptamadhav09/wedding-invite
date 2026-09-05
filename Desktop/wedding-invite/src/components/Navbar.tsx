@@ -11,8 +11,6 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = "full" }) => {
   const navItems = [
     { id: "story", label: "Story" },
     ...(variant !== "rsvp" && variant !== "reception" ? [{ id: "events", label: "Events" }] : []),
-    ...(variant !== "reception" ? [{ id: "venue", label: "Travel" }] : []),
-    ...(variant !== "reception" ? [{ id: "outfits", label: "Outfits" }] : []),
     ...(variant !== "info" ? [{ id: "rsvp", label: "RSVP" }] : []),
   ];
 

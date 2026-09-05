@@ -67,6 +67,8 @@ export default {
         baloo: ["'Baloo Thambi 2'", "sans-serif"],
         tiro: ["'Tiro Devanagari Sanskrit'", "serif"],
         "dm-mono": ["'DM Mono'", "monospace"],
+        cinzel: ["'Cinzel'", "'Cormorant Garamond'", "serif"],
+        playfair: ["'Playfair Display'", "Georgia", "serif"],
         quintessential: ["'Quintessential'", "cursive"],
       },
       borderRadius: {

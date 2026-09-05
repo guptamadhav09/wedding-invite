@@ -25,6 +25,13 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainInvitePage variant="full" />} />
+        {/* Specific webpages for Groom's side */}
+        <Route path="/groom" element={<MainInvitePage variant="full" defaultSide="prateek" />} />
+        <Route path="/prateek" element={<MainInvitePage variant="full" defaultSide="prateek" />} />
+        {/* Specific webpages for Bride's side */}
+        <Route path="/bride" element={<MainInvitePage variant="full" defaultSide="mahek" />} />
+        <Route path="/mahek" element={<MainInvitePage variant="full" defaultSide="mahek" />} />
+        
         <Route path="/rsvp" element={<MainInvitePage variant="rsvp" />} />
         <Route path="/info" element={<MainInvitePage variant="info" />} />
         <Route path="/reception" element={<MainInvitePage variant="reception" />} />

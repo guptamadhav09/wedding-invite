@@ -1,170 +1,199 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronDown, MapPin } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface HeroSectionProps {
   variant?: string;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
+  // Live countdown timer state
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
+
+  function calculateTimeLeft() {
+    const now = new Date().getTime();
+    let target = new Date("2026-12-12T19:00:00+05:30").getTime();
+    let diff = target - now;
+
+    // If target is in the past relative to system clock, target December 12 of current year
+    if (diff <= 0) {
+      target = new Date(`${new Date().getFullYear()}-12-12T19:00:00+05:30`).getTime();
+      diff = target - now;
+      if (diff <= 0) {
+        target = new Date(`${new Date().getFullYear() + 1}-12-12T19:00:00+05:30`).getTime();
+        diff = target - now;
+      }
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    return { days, hours, minutes, seconds };
+  }
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const totalScroll = sectionRef.current.offsetHeight - window.innerHeight;
-      const progress = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const scrollToContent = () => {
     const el = document.getElementById("story");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      const top = el.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top, behavior: "smooth" });
     }
   };
 
   return (
-    <div className="relative">
-      <section
-        ref={sectionRef}
-        className="relative min-h-screen flex flex-col justify-between items-center overflow-hidden bg-[#faf8f5] pt-12 pb-24"
-      >
-        {/* Background Illustrations with modern soft tint */}
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <img
-            src="/assets/hero-background-D3FH2qrh.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-multiply"
-          />
-          <img
-            src="/assets/hero-background-frame1-BNBUASou.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-25"
-          />
-        </div>
-
-        {/* Ambient modern lighting */}
-        <div
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 30%, hsl(var(--gold) / 0.14) 0%, transparent 68%)",
-          }}
-        />
-
-        {/* Main Invite Header Content */}
-        <div
-          className="relative z-20 flex flex-col items-center text-center px-4 max-w-4xl mx-auto mt-6 sm:mt-10"
-          style={{
-            transform: `translateY(${-scrollProgress * 20}vh)`,
-            opacity: Math.max(1 - scrollProgress * 1.5, 0),
-          }}
-        >
-          {/* Namaste Icon & Heading */}
-          <div className="flex flex-col items-center mb-1">
-            <img
-              src="/assets/namaste-cjBk0Frq.svg"
-              alt=""
-              aria-hidden="true"
-              className="w-10 h-10 mb-1 opacity-90 drop-shadow-xs"
-            />
-            <p className="text-3xl sm:text-4xl text-secondary mb-3 font-rozha">
-              नमस्ते
-            </p>
-          </div>
-
-          <p className="font-dm-mono text-[11px] sm:text-xs tracking-[4px] md:tracking-[6px] text-primary uppercase opacity-90 mb-4 font-bold">
-            With Joy, Love &amp; Blessings
-          </p>
-
-          {/* Couple Names */}
-          <h1
-            className="font-mea-culpa text-secondary leading-[0.9] tracking-[-1px] flex items-baseline justify-center whitespace-nowrap mb-4 select-none drop-shadow-xs"
-            style={{
-              fontSize: "clamp(3.8rem, 11vw, 8rem)",
-              gap: "clamp(8px, 1.2vw, 22px)",
-            }}
-          >
-            <span>Mahek</span>
-            <span
-              className="font-tiro opacity-80 inline-block text-[0.45em] align-middle px-1"
-              style={{ transform: "translateY(-0.15em)" }}
-            >
-              व
-            </span>
-            <span>Prateek</span>
-          </h1>
-
-          <p
-            className="font-serif font-light italic text-secondary/90 mb-6 max-w-md sm:max-w-xl text-center leading-relaxed"
-            style={{ fontSize: "clamp(19px, 2.2vw, 26px)" }}
-          >
-            invite you to celebrate their wedding celebrations with family &amp; friends
-          </p>
-
-          {/* Divider with Star */}
-          <div className="flex items-center gap-3 my-2">
-            <div className="w-12 sm:w-16 h-px bg-gold/50" />
-            <span className="text-gold text-xs">✦</span>
-            <div className="w-12 sm:w-16 h-px bg-gold/50" />
-          </div>
-
-          {/* Venue & Maps Highlight Badge */}
-          <div className="mt-4 flex flex-col sm:flex-row items-center gap-4 bg-white/75 backdrop-blur-md border border-gold/30 rounded-2xl py-3.5 px-6 shadow-sm">
-            <div className="text-center sm:text-left">
-              <p className="font-dm-mono text-[10px] tracking-[3px] text-muted-foreground uppercase mb-0.5 font-bold">
-                Wedding Venue
-              </p>
-              <div
-                className="font-serif text-secondary font-bold tracking-wide"
-                style={{ fontSize: "clamp(18px, 2vw, 23px)" }}
-              >
-                Evara, Vasundhara
-              </div>
-            </div>
-
-            <div className="hidden sm:block w-px h-9 bg-border" />
-
-            <a
-              href="https://share.google/IKoSU02wwdxXIkSUl"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors text-xs font-dm-mono uppercase tracking-wider font-semibold border border-primary/20"
-            >
-              <MapPin className="w-3.5 h-3.5 text-primary" />
-              <span>Open in Google Maps</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <button
-          onClick={scrollToContent}
-          className="relative z-20 flex flex-col items-center gap-1.5 text-muted-foreground hover:text-secondary transition-colors cursor-pointer group mt-12 mb-4"
-          aria-label="Scroll to story"
-        >
-          <span className="text-[10px] tracking-[0.3em] uppercase font-dm-mono font-medium">
-            Scroll to explore
-          </span>
-          <ChevronDown className="w-4 h-4 text-primary animate-bounce transition-transform group-hover:scale-110" />
-        </button>
-      </section>
-
-      {/* Modern Bottom Transition Graphic */}
-      <img
-        src="/assets/hero-bottom-watercolor-CjYsISzi.png"
-        alt=""
-        aria-hidden="true"
-        className="w-full block -mt-px saturate-[0.9] opacity-80 pointer-events-none relative z-10"
+    <section
+      id="hero"
+      className="relative min-h-screen flex flex-col justify-between items-center bg-[#faf7f2] pt-16 sm:pt-20 pb-16 px-4"
+    >
+      {/* Soft luxury ambient background lighting (NO background image) */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 35%, hsl(var(--gold) / 0.15) 0%, transparent 70%)",
+        }}
       />
-    </div>
+
+      {/* Top Spacer */}
+      <div className="h-2 sm:h-6" />
+
+      {/* ── Main Hero Content (Always 100% visible, no fading or disappearing) ── */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto my-auto py-4 sm:py-6">
+        {/* ── Sacred Auspicious Invocation: Lord Ganesha (Bhagwan Ji) ── */}
+        <div className="flex flex-col items-center justify-center mb-5 sm:mb-7">
+          {/* Elegant Golden Ganesha Line-Art Motif */}
+          <svg
+            viewBox="0 0 64 64"
+            className="w-12 h-12 sm:w-14 sm:h-14 mb-2 text-[#b88d37] drop-shadow-xs"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-label="Lord Ganesha"
+          >
+            {/* Crown / Mukut */}
+            <path d="M26 13 L32 6 L38 13 L34 16 L30 16 Z" fill="rgba(184, 141, 55, 0.15)" />
+            <path d="M30 6 L32 3 L34 6" />
+            <circle cx="32" cy="2" r="1.2" fill="#c0392b" stroke="none" />
+
+            {/* Auspicious Tilak on Forehead */}
+            <path d="M28 17 Q32 19 36 17" stroke="#b88d37" strokeWidth="1.5" />
+            <path d="M32 14 L32 20" stroke="#c0392b" strokeWidth="2" />
+            <circle cx="32" cy="18" r="1" fill="#c0392b" stroke="none" />
+
+            {/* Left Ear */}
+            <path d="M25 21 C17 21 16 31 22 35 C25 37 27 36 27 34" />
+
+            {/* Right Ear */}
+            <path d="M39 21 C47 21 48 31 42 35 C39 37 37 36 37 34" />
+
+            {/* Gracefully Curving Face & Trunk */}
+            <path d="M26 23 C26 21 29 19 32 19 C35 19 38 21 38 23 C38 28 35 34 35 41 C35 47 38 51 37 53 C36 55 33 56 30 54 C28 52 28 48 31 46 C33 45 35 47 34 49" />
+
+            {/* Sweet Laddu / Modak */}
+            <circle cx="29" cy="48" r="2.2" fill="#dfc082" stroke="#b88d37" strokeWidth="1" />
+
+            {/* Eyes */}
+            <ellipse cx="29.5" cy="23.5" rx="1.2" ry="0.6" fill="#3d2b1f" stroke="none" />
+            <ellipse cx="34.5" cy="23.5" rx="1.2" ry="0.6" fill="#3d2b1f" stroke="none" />
+          </svg>
+
+          {/* Traditional Sanskrit Shloka Header */}
+          <p className="font-tiro text-sm sm:text-base md:text-lg tracking-[0.25em] text-[#8f6d2d] font-semibold select-none">
+            ॥ श्री गणेशाय नमः ॥
+          </p>
+        </div>
+
+        {/* THE WEDDING OF */}
+        <p className="font-serif tracking-[0.35em] text-xs sm:text-sm uppercase text-[#b69963] font-semibold mb-3 sm:mb-5">
+          The Wedding Of
+        </p>
+
+        {/* Couple Names (Prateek & Mahek) */}
+        <h1 className="font-serif text-[#3d2b1f] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
+          <span>Prateek</span>
+          <span className="font-great-vibes text-gold font-normal px-2.5 sm:px-4 text-[1.1em] align-baseline">
+            &amp;
+          </span>
+          <span>Mahek</span>
+        </h1>
+
+        {/* Thin Gold Divider Line */}
+        <div className="w-48 sm:w-64 h-[1.5px] bg-[#cbb085]/60 mx-auto my-5 sm:my-6" />
+
+        {/* Date */}
+        <p className="font-serif text-xl sm:text-2xl text-[#523d2e] tracking-wide font-medium mb-1.5">
+          December 12, 2026
+        </p>
+
+        {/* Venue */}
+        <p className="font-serif text-xs sm:text-sm tracking-[0.28em] uppercase text-[#7d6453] font-semibold">
+          Evara, Vasundhara
+        </p>
+
+        {/* ── 4 Countdown Timer Cards ── */}
+        <div className="flex items-center justify-center gap-2.5 sm:gap-4 mt-8 sm:mt-10">
+          {/* DAYS */}
+          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+              {String(timeLeft.days).padStart(2, "0")}
+            </span>
+            <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
+              Days
+            </span>
+          </div>
+
+          {/* HOURS */}
+          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+              {String(timeLeft.hours).padStart(2, "0")}
+            </span>
+            <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
+              Hours
+            </span>
+          </div>
+
+          {/* MINUTES */}
+          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+              {String(timeLeft.minutes).padStart(2, "0")}
+            </span>
+            <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
+              Minutes
+            </span>
+          </div>
+
+          {/* SECONDS */}
+          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+              {String(timeLeft.seconds).padStart(2, "0")}
+            </span>
+            <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
+              Seconds
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll to explore indicator */}
+      <button
+        onClick={scrollToContent}
+        className="relative z-10 flex flex-col items-center gap-1.5 text-[#887063] hover:text-secondary transition-colors cursor-pointer group mt-6"
+        aria-label="Scroll to story"
+      >
+        <span className="text-[10px] tracking-[0.25em] uppercase font-dm-mono font-medium">
+          Scroll to explore
+        </span>
+        <ChevronDown className="w-4 h-4 text-gold-dark animate-bounce transition-transform group-hover:scale-110" />
+      </button>
+    </section>
   );
 };

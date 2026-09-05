@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown, MapPin, Clock, Shirt, ExternalLink, Sparkles } from "lucide-react";
+import { ChevronDown, MapPin, Clock, ExternalLink, Sparkles } from "lucide-react";
 import { weddingEvents } from "../data/weddingData";
 
 export const EventsSection: React.FC = () => {
@@ -22,7 +22,7 @@ export const EventsSection: React.FC = () => {
           <span>✦</span>
         </div>
         <p className="font-serif italic text-muted-foreground mt-4 text-base sm:text-lg max-w-xl mx-auto">
-          Here is what we have planned for our three celebrations. Tap any event card to view full details.
+          Here is what we have planned for our wedding celebrations. Tap any event card to view full details.
         </p>
       </div>
 
@@ -71,12 +71,6 @@ export const EventsSection: React.FC = () => {
                       <MapPin className="w-4 h-4 text-primary shrink-0" />
                       <span className={isTBA ? "italic text-muted-foreground" : "font-semibold text-secondary"}>
                         {evt.venue}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Shirt className="w-4 h-4 text-primary shrink-0" />
-                      <span className="text-secondary/90 font-medium">
-                        {evt.dress}
                       </span>
                     </div>
                   </div>

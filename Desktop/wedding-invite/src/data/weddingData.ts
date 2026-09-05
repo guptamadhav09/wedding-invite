@@ -16,7 +16,7 @@ export const weddingEvents: WeddingEvent[] = [
   {
     key: "mehendi",
     name: "Mehendi & Ring Ceremony",
-    date: "Thursday, 11th December 2025",
+    date: "Thursday, 11th December 2026",
     time: "4:00 PM onwards",
     venue: "Venue to be finalised",
     venueStatus: "tba",
@@ -33,19 +33,37 @@ export const weddingEvents: WeddingEvent[] = [
     image: "/assets/mehendi-venue-B2G5rUvw.webp",
   },
   {
+    key: "haldi",
+    name: "Haldi Ceremony",
+    date: "Friday, 12th December 2026",
+    time: "9:00 AM onwards",
+    venue: "Evara, Vasundhara",
+    venueStatus: "confirmed",
+    mapLink: "https://share.google/IKoSU02wwdxXIkSUl",
+    dress: "Old clothes / Yellow & White attire",
+    description:
+      "Begin the wedding day with the golden glow of turmeric blessings. An intimate, joyful ceremony filled with laughter, love, and the warmth of family traditions.",
+    expandedDetails: [
+      "Traditional turmeric paste ceremony with family blessings",
+      "Fun-filled moments surrounded by closest family and friends",
+      "Morning refreshments and light breakfast spread",
+      "Complimentary valet parking available at Evara"
+    ],
+    image: "/assets/wedding-nighttime-CsWYzfaJ.webp",
+  },
+  {
     key: "wedding",
-    name: "Haldi & Wedding Ceremony",
-    date: "Friday, 12th December 2025",
-    time: "Haldi: 9:00 AM onwards · Wedding: 7:00 PM onwards",
+    name: "Wedding Ceremony",
+    date: "Friday, 12th December 2026",
+    time: "7:00 PM onwards",
     venue: "Evara, Vasundhara",
     venueStatus: "confirmed",
     mapLink: "https://share.google/IKoSU02wwdxXIkSUl",
     dress: "Royal Indian Traditional / Sherwanis & Silk Lehengas",
     description:
-      "The day begins with the golden glow of Haldi at 9 AM, and culminates in the sacred vows where Mahek & Prateek unite for a lifetime of love. Surrounded by family, blessings, and timeless rituals.",
+      "The grand celebration culminates in the sacred vows where Prateek & Mahek unite for a lifetime of love. Surrounded by family, blessings, and timeless rituals under the stars.",
     expandedDetails: [
-      "Haldi ceremony at 9:00 AM — blessings in turmeric & sunshine",
-      "Grand Baraat procession with dhol drummers in the evening",
+      "Grand Baraat procession with dhol drummers",
       "Varmala and sacred Pheras under the stars",
       "Grand wedding feast featuring royal delicacies",
       "Complimentary valet parking available at Evara"
