@@ -32,7 +32,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
       {/* ── Header ── */}
       <div className="flex flex-col items-center mb-9 sm:mb-12 relative z-10 text-center px-4 max-w-3xl">
         {/* Family invitation line */}
-        <p className="font-serif italic text-[#4a3622] text-base sm:text-2xl mb-3 sm:mb-4 font-medium tracking-wide leading-relaxed">
+        <p className="font-serif italic text-[#4a3622] text-lg sm:text-3xl md:text-4xl mb-4 sm:mb-6 font-medium tracking-wide leading-relaxed max-w-4xl">
           The Dhingra &amp; Gupta families joyfully invite you to celebrate
         </p>
 
@@ -74,52 +74,38 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
           onMouseEnter={() => setHovered("prateek")}
           onMouseLeave={() => setHovered(null)}
           aria-label="Enter celebration as Groom's guest (Prateek)"
-          className={`group relative w-full flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#133822]
-            transition-all duration-300 rounded-lg overflow-hidden border-l-4 border-y border-r shadow-sm text-left
+          className={`group relative w-full flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#8a6b4d]
+            transition-all duration-300 rounded-lg overflow-hidden border shadow-sm text-left
             ${
               hovered === "prateek"
-                ? "scale-[1.01] sm:scale-[1.03] shadow-lg border-[#8eb99a] bg-[#deede2]"
-                : "border-[#b2d5bd] bg-[#e6f2e9]"
+                ? "scale-[1.01] sm:scale-[1.03] shadow-md border-[#d8c3a8] bg-[#eee1cf]"
+                : "border-[#e4d4be] bg-[#f5eee3]"
             }
             ${hovered === "mahek" ? "opacity-60 scale-[0.99] sm:scale-[0.98]" : "opacity-100"}`}
         >
-          <div className="relative z-10 flex items-center p-3 sm:p-4 gap-3">
+          <div className="relative z-10 flex items-center p-2 sm:p-4 gap-2 sm:gap-3">
             
             {/* Monogram + Text Info */}
-            <div className="flex items-center gap-3 min-w-0 flex-1">
-              {/* Royal Seal */}
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12 shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                <div className="absolute inset-0 rounded-full bg-white/90 border border-[#b89f65]/40 shadow-xs" />
-                <svg
-                  viewBox="0 0 100 100"
-                  className="absolute inset-0 w-full h-full text-[#b89f65] fill-none stroke-current stroke-[1.5]"
-                >
-                  <circle cx="50" cy="50" r="43" strokeDasharray="3 3" opacity="0.6" />
-                </svg>
-                <span
-                  className="relative z-10 font-great-vibes text-2xl select-none"
-                  style={{ color: "#133822" }}
-                >
-                  P
-                </span>
-              </div>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              {/* Simple side marker */}
+              <img
+                src="/assets/boy-icon.png"
+                alt=""
+                className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
+              />
 
               {/* Text Info */}
               <div className="flex flex-col text-left min-w-0">
-                <span className="text-[8px] sm:text-[10px] tracking-[0.15em] uppercase font-dm-mono font-bold text-[#2a5938] truncate">
+                <span className="text-[8px] sm:text-[10px] tracking-[0.15em] uppercase font-dm-mono font-bold text-[#765a3d] truncate">
                   Team Groom
                 </span>
-                <h2 className="text-lg sm:text-xl font-serif font-bold tracking-wide text-[#133822] leading-tight">
+                <h2 className="text-lg sm:text-xl font-serif font-bold tracking-wide text-[#432f22] leading-tight">
                   Prateek
                 </h2>
-                <p className="text-[9px] sm:text-xs font-serif italic text-[#3b6348] font-medium truncate">
+                <p className="text-[9px] sm:text-xs font-serif italic text-[#876d54] font-medium truncate">
                   Groom's side
                 </p>
               </div>
-            </div>
-
-            <div className="shrink-0 w-8 h-8 rounded-full bg-white/80 border border-[#2a5938]/25 text-[#133822] flex items-center justify-center text-base transition-all duration-300 group-hover:bg-[#133822] group-hover:text-white">
-              <span aria-hidden="true">→</span>
             </div>
 
           </div>
@@ -131,52 +117,38 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
           onMouseEnter={() => setHovered("mahek")}
           onMouseLeave={() => setHovered(null)}
           aria-label="Enter celebration as Bride's guest (Mahek)"
-          className={`group relative w-full flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#451323]
-            transition-all duration-300 rounded-lg overflow-hidden border-l-4 border-y border-r shadow-sm text-left
+          className={`group relative w-full flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#8a6b4d]
+            transition-all duration-300 rounded-lg overflow-hidden border shadow-sm text-left
             ${
               hovered === "mahek"
-                ? "scale-[1.01] sm:scale-[1.03] shadow-lg border-[#d9a5b3] bg-[#f7e2e7]"
-                : "border-[#e0bac4] bg-[#fbebf0]"
+                ? "scale-[1.01] sm:scale-[1.03] shadow-md border-[#d8c3a8] bg-[#eee1cf]"
+                : "border-[#e4d4be] bg-[#f5eee3]"
             }
             ${hovered === "prateek" ? "opacity-60 scale-[0.99] sm:scale-[0.98]" : "opacity-100"}`}
         >
-          <div className="relative z-10 flex items-center p-3 sm:p-4 gap-3">
+          <div className="relative z-10 flex items-center p-2 sm:p-4 gap-2 sm:gap-3">
             
             {/* Monogram + Text Info */}
-            <div className="flex items-center gap-3 min-w-0 flex-1">
-              {/* Royal Seal */}
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12 shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                <div className="absolute inset-0 rounded-full bg-white/90 border border-[#b89f65]/40 shadow-xs" />
-                <svg
-                  viewBox="0 0 100 100"
-                  className="absolute inset-0 w-full h-full text-[#b89f65] fill-none stroke-current stroke-[1.5]"
-                >
-                  <circle cx="50" cy="50" r="43" strokeDasharray="3 3" opacity="0.6" />
-                </svg>
-                <span
-                  className="relative z-10 font-great-vibes text-2xl select-none"
-                  style={{ color: "#451323" }}
-                >
-                  M
-                </span>
-              </div>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              {/* Simple side marker */}
+              <img
+                src="/assets/girl-icon.png"
+                alt=""
+                className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
+              />
 
               {/* Text Info */}
               <div className="flex flex-col text-left min-w-0">
-                <span className="text-[8px] sm:text-[10px] tracking-[0.15em] uppercase font-dm-mono font-bold text-[#722f42] truncate">
+                <span className="text-[8px] sm:text-[10px] tracking-[0.15em] uppercase font-dm-mono font-bold text-[#765a3d] truncate">
                   Team Bride
                 </span>
-                <h2 className="text-lg sm:text-xl font-serif font-bold tracking-wide text-[#451323] leading-tight">
+                <h2 className="text-lg sm:text-xl font-serif font-bold tracking-wide text-[#432f22] leading-tight">
                   Mahek
                 </h2>
-                <p className="text-[9px] sm:text-xs font-serif italic text-[#7a394c] font-medium truncate">
+                <p className="text-[9px] sm:text-xs font-serif italic text-[#876d54] font-medium truncate">
                   Bride's side
                 </p>
               </div>
-            </div>
-
-            <div className="shrink-0 w-8 h-8 rounded-full bg-white/80 border border-[#722f42]/25 text-[#451323] flex items-center justify-center text-base transition-all duration-300 group-hover:bg-[#451323] group-hover:text-white">
-              <span aria-hidden="true">→</span>
             </div>
 
           </div>

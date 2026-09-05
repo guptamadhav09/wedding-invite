@@ -49,7 +49,7 @@ export const weddingEvents: WeddingEvent[] = [
       "Morning refreshments and light breakfast spread",
       "Complimentary valet parking available at Evara"
     ],
-    image: "/assets/our-story.jpeg",
+    image: "/assets/evara.webp",
   },
   {
     key: "wedding",
@@ -68,7 +68,7 @@ export const weddingEvents: WeddingEvent[] = [
       "Grand wedding feast featuring royal delicacies",
       "Complimentary valet parking available at Evara"
     ],
-    image: "/assets/our-story.jpeg",
+    image: "/assets/evara-banquet.webp",
   },
 ];
 
