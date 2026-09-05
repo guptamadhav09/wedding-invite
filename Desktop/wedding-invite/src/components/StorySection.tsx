@@ -3,7 +3,7 @@ import { Coffee, Heart, Sparkles, MapPin } from "lucide-react";
 
 export const StorySection: React.FC = () => {
   return (
-    <section id="story" className="py-16 sm:py-24 px-4 bg-[#faf8f5] relative overflow-hidden">
+    <section id="story" className="pt-24 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6 bg-[#faf8f5] relative overflow-hidden scroll-mt-24">
       {/* Background soft glow */}
       <div
         className="absolute inset-0 pointer-events-none opacity-35"
@@ -37,7 +37,7 @@ export const StorySection: React.FC = () => {
       <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8 relative z-10">
 
         {/* ── ACT 1: THE COOKIE DEBATE ── */}
-        <div className="bg-white border border-border/80 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-md transition-all">
+        <div className="bg-white border border-border/80 rounded-2xl p-6 sm:p-8 pt-7 sm:pt-9 shadow-xs hover:shadow-md transition-all">
           <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-border/60">
             <div className="flex items-center gap-2.5">
               <span className="w-7 h-7 rounded-full bg-primary/10 text-primary font-dm-mono text-xs font-bold flex items-center justify-center">
