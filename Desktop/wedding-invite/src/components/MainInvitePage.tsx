@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SideSelector, type Side } from "./SideSelector";
+import { EnvelopeIntro } from "./EnvelopeIntro";
 import { Navbar } from "./Navbar";
 import { HeroSection } from "./HeroSection";
 import { StorySection } from "./StorySection";
@@ -18,9 +19,15 @@ interface MainInvitePageProps {
 export const MainInvitePage: React.FC<MainInvitePageProps> = ({
   variant = "full",
 }) => {
+  const [envelopeDone, setEnvelopeDone] = useState(false);
   const [selectedSide, setSelectedSide] = useState<Side | null>(null);
 
-  // If no side has been selected yet, display the welcome gateway selector
+  // Stage 1 — Envelope opening animation
+  if (!envelopeDone) {
+    return <EnvelopeIntro onComplete={() => setEnvelopeDone(true)} />;
+  }
+
+  // Stage 2 — Side selector gateway
   if (!selectedSide) {
     return (
       <main className="bg-background">

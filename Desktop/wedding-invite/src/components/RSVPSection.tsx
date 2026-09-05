@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Check } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Check, Download, FileSpreadsheet, Sparkles } from "lucide-react";
 import type { Side } from "./SideSelector";
 
 interface RSVPSectionProps {
@@ -7,21 +7,50 @@ interface RSVPSectionProps {
   embedded?: boolean;
 }
 
+export interface RSVPRecord {
+  submittedAt: string;
+  name: string;
+  contact: string;
+  guests: string;
+  events: string[];
+  dietary: string;
+  message: string;
+  side: string;
+}
+
+// Google Sheets Webhook URL (Users can paste their Google Apps Script Web App URL here or in .env)
+const GOOGLE_SHEETS_WEBHOOK_URL =
+  (import.meta as any).env?.VITE_RSVP_WEBHOOK_URL || "";
+
 export const RSVPSection: React.FC<RSVPSectionProps> = ({
+  side = "mahek",
   embedded = false,
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [rsvpCount, setRsvpCount] = useState(0);
+  const [showAdminExport, setShowAdminExport] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
     guests: "1",
-    events: ["mehendi", "cocktail", "wedding"],
+    events: ["mehendi", "wedding"],
     dietary: "",
     message: "",
   });
+
+  useEffect(() => {
+    try {
+      const records: RSVPRecord[] = JSON.parse(
+        localStorage.getItem("mahek_prateek_rsvps") || "[]"
+      );
+      setRsvpCount(records.length);
+    } catch {
+      setRsvpCount(0);
+    }
+  }, [submitted]);
 
   const toggleEvent = (eventKey: string) => {
     setFormData((prev) => {
@@ -40,13 +69,13 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
     setErrorMsg(null);
 
     if (!formData.name.trim() || !formData.contact.trim()) {
-      setErrorMsg("Please fill in your name and contact details.");
+      setErrorMsg("Please provide your name and phone number/email.");
       return;
     }
 
     const guestsNum = parseInt(formData.guests, 10);
-    if (!guestsNum || guestsNum < 1 || guestsNum > 10) {
-      setErrorMsg("Please enter a guest count between 1 and 10.");
+    if (!guestsNum || guestsNum < 1 || guestsNum > 15) {
+      setErrorMsg("Please enter a valid guest count (1 - 15).");
       return;
     }
 
@@ -57,43 +86,136 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
 
     setSubmitting(true);
 
+    const newRecord: RSVPRecord = {
+      ...formData,
+      side: side === "prateek" ? "Groom (Prateek)" : "Bride (Mahek)",
+      submittedAt: new Date().toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+    };
+
     try {
-      const existingRsvps = JSON.parse(
+      // 1. Always store locally in browser storage as permanent backup
+      const existing: RSVPRecord[] = JSON.parse(
         localStorage.getItem("mahek_prateek_rsvps") || "[]"
       );
-      existingRsvps.push({
-        ...formData,
-        submittedAt: new Date().toISOString(),
-      });
-      localStorage.setItem(
-        "mahek_prateek_rsvps",
-        JSON.stringify(existingRsvps)
-      );
+      existing.push(newRecord);
+      localStorage.setItem("mahek_prateek_rsvps", JSON.stringify(existing));
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // 2. If Google Sheets Webhook is configured, POST to Google Sheets
+      if (GOOGLE_SHEETS_WEBHOOK_URL) {
+        try {
+          await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+            method: "POST",
+            mode: "no-cors", // Required for Google Apps Script webhooks
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newRecord),
+          });
+        } catch (fetchErr) {
+          console.warn("Could not post to remote webhook, saved locally:", fetchErr);
+        }
+      }
+
+      await new Promise((res) => setTimeout(res, 500));
       setSubmitted(true);
     } catch {
-      setErrorMsg("Something went wrong. Please try again.");
+      setErrorMsg("Something went wrong saving your RSVP. Please try again.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  // Export all RSVPs to Excel CSV
+  const handleDownloadExcel = () => {
+    try {
+      const records: RSVPRecord[] = JSON.parse(
+        localStorage.getItem("mahek_prateek_rsvps") || "[]"
+      );
+
+      if (records.length === 0) {
+        alert("No RSVPs recorded yet on this device.");
+        return;
+      }
+
+      // Format CSV rows with BOM for Excel UTF-8 support
+      const headers = [
+        "Submission Date & Time",
+        "Guest Name",
+        "Phone / Email",
+        "Celebrating Side",
+        "Total Guests",
+        "Events Attending",
+        "Dietary Requirements",
+        "Warm Wishes",
+      ];
+
+      const csvRows = [
+        headers.join(","),
+        ...records.map((r) => {
+          const eventsStr = r.events
+            .map((e) =>
+              e === "mehendi"
+                ? "Mehendi & Ring Ceremony"
+                : e === "wedding"
+                ? "Haldi & Wedding Ceremony"
+                : e
+            )
+            .join(" + ");
+
+          return [
+            `"${r.submittedAt.replace(/"/g, '""')}"`,
+            `"${r.name.replace(/"/g, '""')}"`,
+            `"${r.contact.replace(/"/g, '""')}"`,
+            `"${r.side.replace(/"/g, '""')}"`,
+            `"${r.guests}"`,
+            `"${eventsStr.replace(/"/g, '""')}"`,
+            `"${(r.dietary || "None").replace(/"/g, '""')}"`,
+            `"${(r.message || "").replace(/"/g, '""')}"`,
+          ].join(",");
+        }),
+      ];
+
+      const blob = new Blob(["\uFEFF" + csvRows.join("\r\n")], {
+        type: "text/csv;charset=utf-8;",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Mahek_Prateek_Wedding_RSVPs_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch {
+      alert("Error exporting RSVP file.");
     }
   };
 
   return submitted ? (
     <section className={embedded ? "py-8 px-4" : "py-28 px-4 bg-[#f8fbf9]"}>
       <div className="max-w-lg mx-auto text-center animate-fade-in py-8 bg-white border border-gold/40 rounded-3xl p-8 sm:p-12 shadow-md">
-        <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto mb-4">
-          <Check className="w-6 h-6 text-primary" />
+        <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto mb-4 border border-emerald-300">
+          <Check className="w-7 h-7 text-primary" />
         </div>
         <h2 className="text-3xl sm:text-4xl font-serif text-secondary mb-3 font-bold">
-          Thank You!
+          RSVP Received!
         </h2>
         <p className="text-muted-foreground font-sans text-sm sm:text-base leading-relaxed">
-          Your RSVP has been joyfully received. Mahek &amp; Prateek look forward to celebrating with you!
+          Thank you for confirming your presence. Mahek &amp; Prateek eagerly look forward to celebrating with you!
         </p>
         <div className="dishoom-divider mt-6">
           <span>✦</span>
         </div>
+
+        <button
+          onClick={() => setSubmitted(false)}
+          className="mt-6 text-xs font-dm-mono uppercase tracking-widest text-primary hover:underline cursor-pointer"
+        >
+          Submit another response
+        </button>
       </div>
     </section>
   ) : (
@@ -102,10 +224,10 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
       className={
         embedded
           ? "py-6 px-4 relative overflow-hidden"
-          : "py-24 px-4 bg-background relative overflow-hidden"
+          : "py-24 px-4 bg-[#fbf9f5] relative overflow-hidden"
       }
     >
-      {/* Decorative framed photos surrounding on desktop (non-embedded only) */}
+      {/* Decorative framed photos surrounding on desktop */}
       {!embedded && (
         <>
           <img
@@ -127,12 +249,6 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
             className="absolute pointer-events-none select-none hidden lg:block lg:left-[2%] xl:left-[6%] top-[64%] w-36 rotate-2 drop-shadow-md opacity-85"
           />
           <img
-            src="/assets/frame_5-DdEtww5K.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute pointer-events-none select-none hidden lg:block lg:left-[10%] xl:left-[15%] top-[60%] w-40 -rotate-2 drop-shadow-md opacity-85"
-          />
-          <img
             src="/assets/frame_4-DYsMBjCQ.png"
             alt=""
             aria-hidden="true"
@@ -145,12 +261,6 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
             className="absolute pointer-events-none select-none hidden lg:block lg:right-[2%] xl:right-[5%] top-[31%] w-44 rotate-1 drop-shadow-md opacity-85"
           />
           <img
-            src="/assets/frame_2-Df0JR_9p.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute pointer-events-none select-none hidden lg:block lg:right-[10%] xl:right-[15%] top-[63%] w-40 rotate-2 drop-shadow-md opacity-85"
-          />
-          <img
             src="/assets/frame_1-Diqr8l96.png"
             alt=""
             aria-hidden="true"
@@ -161,17 +271,18 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
 
       {/* Header Info */}
       <div className="max-w-2xl mx-auto text-center mb-10 relative z-10">
-        <div className="font-dm-mono text-[11px] tracking-[4px] uppercase text-primary font-bold mb-2">
-          Confirm Your Presence
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-dm-mono uppercase tracking-[3px] font-bold mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+          <span>Confirm Your Presence</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-serif gold-text font-light mb-3">
+        <h2 className="text-3xl sm:text-5xl font-serif gold-text font-light mb-2">
           Please RSVP
         </h2>
         <div className="dishoom-divider">
           <span>✦</span>
         </div>
         <p className="font-serif italic text-muted-foreground text-sm sm:text-base leading-relaxed max-w-lg mx-auto pt-3">
-          Please let us know if you will be joining us for the wedding celebrations.
+          Kindly confirm your attendance so we can ensure the finest arrangements for you.
         </p>
       </div>
 
@@ -218,7 +329,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    placeholder="Your full name"
+                    placeholder="Enter your full name"
                     className="w-full bg-[#fbfdfc] border border-gold/40 rounded-lg px-3.5 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -250,31 +361,38 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     htmlFor="rsvp-guests"
                     className="text-xs tracking-wider uppercase font-semibold text-foreground mb-1 block"
                   >
-                    Number of Guests
+                    Number of Guests Attending
                   </label>
                   <input
                     id="rsvp-guests"
                     type="number"
                     min="1"
-                    max="10"
+                    max="15"
                     value={formData.guests}
                     onChange={(e) =>
                       setFormData({ ...formData, guests: e.target.value })
                     }
-                    className="w-24 bg-[#fbfdfc] border border-gold/40 rounded-lg px-3.5 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-28 bg-[#fbfdfc] border border-gold/40 rounded-lg px-3.5 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
-                {/* Events Attending */}
+                {/* Events Attending (Updated: Mehendi & Ring + Haldi & Wedding) */}
                 <div>
                   <label className="text-xs tracking-wider uppercase font-semibold text-foreground mb-2 block">
                     Events Attending
                   </label>
                   <div className="grid grid-cols-1 gap-2">
                     {[
-                      { key: "mehendi", label: "Mehendi Ceremony" },
-                      { key: "cocktail", label: "Cocktail Party" },
-                      { key: "wedding", label: "Wedding Ceremony (Evara)" },
+                      {
+                        key: "mehendi",
+                        label: "Mehendi & Ring Ceremony",
+                        sub: "Thursday, 11th Dec · 4:00 PM onwards",
+                      },
+                      {
+                        key: "wedding",
+                        label: "Haldi & Wedding Ceremony",
+                        sub: "Friday, 12th Dec · Haldi 9 AM · Wedding 7 PM",
+                      },
                     ].map((evt) => {
                       const checked = formData.events.includes(evt.key);
                       return (
@@ -282,18 +400,25 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                           type="button"
                           key={evt.key}
                           onClick={() => toggleEvent(evt.key)}
-                          className={`flex items-center justify-between px-3.5 py-2 rounded-lg border text-xs text-left transition-all ${
+                          className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs text-left transition-all ${
                             checked
-                              ? "bg-primary/10 border-primary text-primary font-semibold"
+                              ? "bg-primary/10 border-primary text-primary font-semibold shadow-2xs"
                               : "bg-white/60 border-border/70 text-muted-foreground"
                           }`}
                         >
-                          <span>{evt.label}</span>
+                          <div>
+                            <span className="block text-foreground font-medium">
+                              {evt.label}
+                            </span>
+                            <span className="block text-[10px] text-muted-foreground font-normal">
+                              {evt.sub}
+                            </span>
+                          </div>
                           <span
-                            className={`w-4 h-4 rounded flex items-center justify-center text-[10px] border ${
+                            className={`w-5 h-5 rounded-md flex items-center justify-center text-xs border shrink-0 ${
                               checked
                                 ? "bg-primary text-white border-primary"
-                                : "border-border"
+                                : "border-border bg-white"
                             }`}
                           >
                             {checked ? "✓" : ""}
@@ -310,7 +435,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     htmlFor="rsvp-dietary"
                     className="text-xs tracking-wider uppercase font-semibold text-foreground mb-1 block"
                   >
-                    Dietary Requirements (Optional)
+                    Dietary Preferences (Optional)
                   </label>
                   <input
                     id="rsvp-dietary"
@@ -320,18 +445,18 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     onChange={(e) =>
                       setFormData({ ...formData, dietary: e.target.value })
                     }
-                    placeholder="Vegetarian, Jain, allergies, etc."
+                    placeholder="Vegetarian, Jain, food allergies..."
                     className="w-full bg-[#fbfdfc] border border-gold/40 rounded-lg px-3.5 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
-                {/* Message */}
+                {/* Warm Wishes Message */}
                 <div>
                   <label
                     htmlFor="rsvp-message"
                     className="text-xs tracking-wider uppercase font-semibold text-foreground mb-1 block"
                   >
-                    Warm Wishes for the Couple
+                    Warm Wishes for Mahek &amp; Prateek
                   </label>
                   <textarea
                     id="rsvp-message"
@@ -341,7 +466,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    placeholder="Share your blessings and wishes..."
+                    placeholder="Share your blessings with the couple..."
                     className="w-full bg-[#fbfdfc] border border-gold/40 rounded-lg px-3.5 py-2 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -351,9 +476,9 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full gold-gradient text-secondary font-baloo tracking-[0.2em] uppercase text-sm font-bold h-12 rounded-lg border-2 border-gold shadow-md hover:opacity-95 hover:shadow-lg transition-all duration-300 disabled:opacity-60 cursor-pointer mt-4"
+                className="w-full gold-gradient text-secondary font-baloo tracking-[0.2em] uppercase text-sm font-bold h-12 rounded-xl border-2 border-gold shadow-md hover:opacity-95 hover:shadow-lg transition-all duration-300 disabled:opacity-60 cursor-pointer mt-4"
               >
-                {submitting ? "Sending RSVP..." : "Send RSVP"}
+                {submitting ? "Sending RSVP..." : "Confirm RSVP"}
               </button>
             </form>
           </div>
@@ -366,6 +491,43 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
             className="w-full block"
           />
         </div>
+      </div>
+
+      {/* ── Couple / Admin Excel Download Panel ── */}
+      <div className="max-w-md mx-auto mt-12 text-center relative z-20">
+        <button
+          onClick={() => setShowAdminExport(!showAdminExport)}
+          className="text-[11px] font-dm-mono uppercase tracking-[2px] text-muted-foreground/80 hover:text-secondary underline flex items-center justify-center gap-1.5 mx-auto transition-colors cursor-pointer"
+        >
+          <FileSpreadsheet className="w-3.5 h-3.5 text-gold-dark" />
+          <span>Host / Couple Admin: View &amp; Export RSVPs ({rsvpCount})</span>
+        </button>
+
+        {showAdminExport && (
+          <div className="mt-4 p-5 bg-white border border-gold/30 rounded-2xl shadow-lg text-left animate-fade-in font-sans">
+            <div className="flex items-center justify-between mb-3 border-b pb-2">
+              <h4 className="font-serif font-bold text-secondary text-base flex items-center gap-2">
+                <FileSpreadsheet className="w-4 h-4 text-primary" />
+                RSVP Excel Tracker
+              </h4>
+              <span className="text-xs bg-primary/10 text-primary font-bold px-2 py-0.5 rounded-full font-dm-mono">
+                {rsvpCount} Responses
+              </span>
+            </div>
+
+            <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+              Export all guest responses into a clean, formatted Excel spreadsheet (.csv file) that opens directly in Microsoft Excel, Apple Numbers, or Google Sheets.
+            </p>
+
+            <button
+              onClick={handleDownloadExcel}
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-primary text-white text-xs font-dm-mono uppercase tracking-wider font-semibold hover:bg-secondary transition-colors cursor-pointer shadow-sm"
+            >
+              <Download className="w-4 h-4 text-gold-light" />
+              <span>Download Excel Spreadsheet (.csv)</span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

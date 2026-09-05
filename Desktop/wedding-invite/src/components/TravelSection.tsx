@@ -1,32 +1,31 @@
 import React from "react";
-import { Hotel, ExternalLink, MapPin, Navigation, Car } from "lucide-react";
-import { hotelOptions } from "../data/weddingData";
+import { ExternalLink, MapPin, Navigation, Car } from "lucide-react";
 
 export const TravelSection: React.FC = () => {
   return (
     <section id="venue" className="py-24 px-4 bg-background relative overflow-hidden">
       <div className="max-w-4xl mx-auto text-center mb-16">
         <div className="font-dm-mono text-[11px] tracking-[4px] uppercase text-primary font-bold mb-2">
-          Location &amp; Stay
+          Location &amp; Directions
         </div>
         <h2 className="text-3xl sm:text-5xl font-serif gold-text font-light mb-3">
-          Wedding Venue &amp; Travel
+          Wedding Venue
         </h2>
         <div className="dishoom-divider">
           <span>✦</span>
         </div>
         <p className="font-serif italic text-muted-foreground mt-4 text-base sm:text-lg max-w-xl mx-auto">
-          Detailed location guide for Evara, Vasundhara, navigation directions, and nearby accommodations.
+          Detailed location guide for Evara, Vasundhara, and navigation directions.
         </p>
       </div>
 
-      <div className="max-w-5xl mx-auto space-y-16">
+      <div className="max-w-5xl mx-auto">
         {/* Main Venue Highlight */}
         <div className="bg-white border border-gold/40 rounded-3xl p-6 sm:p-10 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-dm-mono uppercase tracking-widest font-bold">
-                Wedding Ceremony Venue
+                Haldi &amp; Wedding Ceremony Venue
               </span>
               <h3 className="font-serif text-3xl sm:text-4xl text-secondary font-bold mt-3 mb-4">
                 Evara, Vasundhara
@@ -79,46 +78,6 @@ export const TravelSection: React.FC = () => {
                 className="w-full h-44 object-cover rounded-2xl shadow-xs col-span-2"
               />
             </div>
-          </div>
-        </div>
-
-        {/* Recommended Accommodations Nearby */}
-        <div>
-          <div className="flex items-center gap-3 mb-6">
-            <Hotel className="w-5 h-5 text-primary" />
-            <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-bold">
-              Recommended Hotels Near Evara
-            </h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {hotelOptions.map((hotel) => (
-              <div
-                key={hotel.name}
-                className="bg-white border border-border/80 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
-              >
-                <div>
-                  <img
-                    src={hotel.image}
-                    alt={hotel.name}
-                    className="w-full h-44 object-cover"
-                  />
-                  <div className="p-5">
-                    <span className="text-[10px] font-dm-mono uppercase tracking-wider text-primary font-bold">
-                      {hotel.area} · {hotel.tag}
-                    </span>
-                    <h4 className="font-serif text-xl font-bold text-secondary mt-1 mb-2">
-                      {hotel.name}
-                    </h4>
-                    <p className="text-xs text-muted-foreground font-sans leading-relaxed mb-3">
-                      {hotel.desc}
-                    </p>
-                    <p className="text-xs font-semibold text-primary">
-                      📍 {hotel.price}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
