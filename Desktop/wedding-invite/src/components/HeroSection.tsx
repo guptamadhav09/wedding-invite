@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
+import type { Side } from "./SideSelector";
+
 interface HeroSectionProps {
   variant?: string;
+  side?: Side;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = () => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
   // Live countdown timer state
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
@@ -117,13 +120,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           The Wedding Of
         </p>
 
-        {/* Couple Names (Prateek & Mahek) */}
+        {/* Couple Names — Groom first if groom's side selected, Bride first if bride's side selected */}
         <h1 className="font-serif text-[#3d2b1f] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
-          <span>Prateek</span>
+          <span>{side === "prateek" ? "Prateek" : "Mahek"}</span>
           <span className="font-great-vibes text-gold font-normal px-2.5 sm:px-4 text-[1.1em] align-baseline">
             &amp;
           </span>
-          <span>Mahek</span>
+          <span>{side === "prateek" ? "Mahek" : "Prateek"}</span>
         </h1>
 
         {/* Thin Gold Divider Line */}

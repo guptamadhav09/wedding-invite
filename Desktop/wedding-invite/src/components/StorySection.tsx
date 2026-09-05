@@ -236,9 +236,9 @@ export const StorySection: React.FC = () => {
             {/* Venue Polaroid Photo */}
             <div className="mt-6 max-w-md rounded-2xl overflow-hidden shadow-md border-4 border-white bg-white">
               <img
-                src="/assets/wedding-nighttime-CsWYzfaJ.webp"
+                src="/assets/our-story.jpeg"
                 alt="Evara, Vasundhara"
-                className="w-full h-52 sm:h-60 object-cover"
+                className="w-full h-90 sm:h-60 object-cover object-[center_65%]"
               />
               <div className="p-3.5 bg-white text-center">
                 <div className="flex items-center justify-center gap-1 text-primary text-xs font-semibold mb-0.5">

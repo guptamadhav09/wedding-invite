@@ -52,7 +52,7 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
   return (
     <main className="bg-background outline-none min-h-screen">
       <Navbar variant={variant} />
-      <HeroSection variant={variant} />
+      <HeroSection variant={variant} side={activeSide} />
 
       {/* Story Journey */}
       <StorySection />
@@ -64,7 +64,7 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
       <RSVPSection side={activeSide} />
 
       {/* Footer */}
-      <WeddingFooter variant={variant} />
+      <WeddingFooter variant={variant} side={activeSide} />
 
       {/* Floating Action Button for RSVP */}
       <FloatingRSVP side={activeSide} />

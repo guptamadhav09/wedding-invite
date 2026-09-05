@@ -1,10 +1,12 @@
 import React from "react";
+import type { Side } from "./SideSelector";
 
 interface WeddingFooterProps {
   variant?: string;
+  side?: Side;
 }
 
-export const WeddingFooter: React.FC<WeddingFooterProps> = () => {
+export const WeddingFooter: React.FC<WeddingFooterProps> = ({ side = "mahek" }) => {
   return (
     <footer className="py-20 px-4 bg-background border-t border-primary/15 text-center relative overflow-hidden">
       {/* Decorative Gold Geometric SVG Divider */}
@@ -64,7 +66,7 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = () => {
 
       <div className="space-y-3">
         <h3 className="font-great-vibes text-4xl sm:text-5xl gold-text">
-          Mahek &amp; Prateek
+          {side === "prateek" ? "Prateek" : "Mahek"} &amp; {side === "prateek" ? "Mahek" : "Prateek"}
         </h3>
         <p className="text-xs sm:text-sm text-muted-foreground tracking-[0.25em] uppercase font-sans font-semibold">
           Evara, Vasundhara · Delhi NCR
