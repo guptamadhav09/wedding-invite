@@ -56,3 +56,20 @@ npm run build
 npm run preview
 ```
 The compiled bundle will be in `dist/`.
+
+### Save RSVPs to Google Sheets
+
+The RSVP form saves a local backup and can also append every response to a Google Sheet.
+
+1. Create or open a Google Sheet, then open **Extensions > Apps Script**.
+2. Copy the code from `google-apps-script/Code.gs` into the Apps Script editor and save it.
+3. Choose **Deploy > New deployment**, select **Web app**, set **Execute as** to `Me`, and set **Who has access** to `Anyone`. Authorize the deployment when prompted.
+4. Copy the deployed web app URL into a local `.env` file:
+
+```bash
+VITE_RSVP_WEBHOOK_URL=https://script.google.com/macros/s/your-deployment-id/exec
+```
+
+5. Restart the Vite server or rebuild the site after changing `.env`.
+
+Responses will appear in a tab named `RSVP Responses`. The existing local browser backup remains enabled if the sheet is temporarily unavailable.

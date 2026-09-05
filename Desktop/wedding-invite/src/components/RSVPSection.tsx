@@ -19,7 +19,7 @@ export interface RSVPRecord {
 }
 
 const GOOGLE_SHEETS_WEBHOOK_URL =
-  (import.meta as any).env?.VITE_RSVP_WEBHOOK_URL || "";
+  import.meta.env.VITE_RSVP_WEBHOOK_URL || "";
 
 // Family Contact Numbers for both sides
 export const familyContacts = {
@@ -109,9 +109,20 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
             method: "POST",
             mode: "no-cors",
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "text/plain",
             },
-            body: JSON.stringify(newRecord),
+            body: JSON.stringify({
+              name: formData.name,
+              contact: formData.contact,
+              phone: formData.contact,
+              guests: formData.guests,
+              dietary: formData.dietary,
+              message: formData.message,
+              wishes: formData.message,
+              events: formData.events,
+              side: newRecord.side,
+              submittedAt: newRecord.submittedAt,
+            }),
           });
         } catch (fetchErr) {
           console.warn("Could not post to remote webhook, saved locally:", fetchErr);

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { SideSelector, type Side } from "./SideSelector";
 import { EnvelopeIntro } from "./EnvelopeIntro";
 import { Navbar } from "./Navbar";
@@ -16,11 +16,48 @@ interface MainInvitePageProps {
   defaultSide?: Side;
 }
 
+const ScrollReveal: React.FC<{
+  children: React.ReactNode;
+  delay?: number;
+}> = ({ children, delay = 0 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px" }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`scroll-reveal${isVisible ? " is-visible" : ""}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
+
 export const MainInvitePage: React.FC<MainInvitePageProps> = ({
   variant = "full",
   defaultSide,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const urlSideParam = searchParams.get("side")?.toLowerCase();
   
@@ -34,6 +71,10 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
 
   const [envelopeDone, setEnvelopeDone] = useState(false);
   const [selectedSide, setSelectedSide] = useState<Side | null>(initialSide);
+
+  useEffect(() => {
+    setSelectedSide(initialSide);
+  }, [initialSide, location.key]);
 
   // Stage 1 — Envelope opening animation
   if (!envelopeDone) {
@@ -52,7 +93,8 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
   const activeSide = selectedSide || "mahek";
 
   const goBack = () => {
-    if (window.history.length > 1) {
+    const historyIndex = window.history.state?.idx;
+    if (typeof historyIndex === "number" && historyIndex > 0) {
       navigate(-1);
       return;
     }
@@ -74,16 +116,24 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
       <HeroSection variant={variant} side={activeSide} />
 
       {/* Story Journey */}
-      <StorySection />
+      <ScrollReveal delay={80}>
+        <StorySection />
+      </ScrollReveal>
 
       {/* Detailed Wedding Events List */}
-      <EventsSection />
+      <ScrollReveal delay={120}>
+        <EventsSection />
+      </ScrollReveal>
 
       {/* Embedded RSVP Section */}
-      <RSVPSection side={activeSide} />
+      <ScrollReveal delay={160}>
+        <RSVPSection side={activeSide} />
+      </ScrollReveal>
 
       {/* Footer */}
-      <WeddingFooter variant={variant} side={activeSide} />
+      <ScrollReveal delay={200}>
+        <WeddingFooter variant={variant} side={activeSide} />
+      </ScrollReveal>
 
       {/* Floating Action Button for RSVP */}
       <FloatingRSVP side={activeSide} />

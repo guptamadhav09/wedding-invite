@@ -16,7 +16,7 @@ export const FloatingRSVP: React.FC<FloatingRSVPProps> = ({ side = "mahek" }) =>
       <button
         onClick={() => setOpen(true)}
         aria-label="Open RSVP form"
-        className="fixed bottom-6 right-6 z-50 gold-gradient text-secondary font-baloo tracking-[0.2em] uppercase text-sm sm:text-base font-semibold h-12 px-6 rounded-none border-2 border-[hsl(43,72%,38%)] shadow-lg hover:opacity-90 hover:shadow-[0_4px_20px_hsl(43,72%,53%,0.4)] transition-all duration-300 cursor-pointer"
+        className="fixed bottom-4 right-4 sm:bottom-auto sm:top-1/2 sm:right-0 sm:-translate-y-1/2 z-50 gold-gradient text-secondary font-baloo tracking-[0.2em] uppercase text-sm sm:text-base font-semibold h-11 sm:h-12 px-5 sm:px-6 rounded-none border-2 border-[hsl(43,72%,38%)] shadow-lg hover:opacity-90 hover:shadow-[0_4px_20px_hsl(43,72%,53%,0.4)] transition-all duration-300 cursor-pointer sm:[writing-mode:vertical-rl] sm:rounded-l-md"
       >
         ✦ RSVP
       </button>

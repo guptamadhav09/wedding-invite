@@ -238,7 +238,7 @@ export const StorySection: React.FC = () => {
               <img
                 src="/assets/our-story.jpeg"
                 alt="Evara, Vasundhara"
-                className="w-full h-74 sm:h-60 object-cover object-[center_65%]"
+                className="w-full h-[19rem] sm:h-[15.5rem] object-cover object-[center_65%]"
               />
               <div className="p-3.5 bg-white text-center">
                 <div className="flex items-center justify-center gap-1 text-primary text-xs font-semibold mb-0.5">
