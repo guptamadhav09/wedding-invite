@@ -61,15 +61,16 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
         }}
       >
         {/* Top subtle hint */}
-        <p className="font-dm-mono text-[9px] sm:text-[10px] tracking-[4px] uppercase text-[#8c765e] font-semibold mb-6">
-          Wedding Invitation
-        </p>
+        <div className="mb-6 flex translate-x-3 items-center justify-center gap-3 font-dm-mono text-[9px] font-semibold uppercase tracking-[3px] text-[#8c765e] sm:text-[10px]">
+          <span>Wedding</span>
+          <span>Invitation</span>
+        </div>
 
         {/* ── Circle Emblem in a DIFFERENT BEIGE ── */}
         <div
           className="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center relative shadow-lg transition-transform duration-300 hover:scale-105"
           style={{
-            background: "#bda890", // Distinct contrasting deep caramel beige
+            background: "#a72d32", // Red wax-stamp seal
             border: "3px solid #dfd3c3", // Light beige outer border
             boxShadow: "0 8px 25px rgba(90, 75, 55, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.3)",
           }}
@@ -85,7 +86,7 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
             <span
               className="font-great-vibes text-[#fffefb] select-none text-3xl sm:text-4xl"
               style={{
-                textShadow: "0 1px 3px rgba(60, 45, 30, 0.35)",
+                textShadow: "0 1px 3px rgba(60, 20, 20, 0.35)",
               }}
             >
               P&amp;M
