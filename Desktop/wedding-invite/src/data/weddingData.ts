@@ -14,6 +14,10 @@ export interface WeddingEvent {
     groom: string;
     bride: string;
   };
+  sideImages?: {
+    groom: string;
+    bride: string;
+  };
 }
 
 export interface InviteeContact {
@@ -60,22 +64,25 @@ export const weddingEvents: WeddingEvent[] = [
     expandedDetails: [
       "Professional henna artists for all guests",
       "Ring ceremony — a beautiful exchange of promises",
-      "Live music and celebratory folk beats",
-      "Gourmet chaat counters and refreshing drinks",
-      "Venue details will be shared once finalised"
+      "Live music and celebratory beats",
+      "Followed by cocktails and dinner"
     ],
-    image: "/assets/mehendi-venue-B2G5rUvw.webp",
+    image: "/assets/mehendi-venue.jpeg",
   },
   {
     key: "haldi",
     name: "Haldi Ceremony",
     date: "Friday, 12th December 2026",
     time: "9:00 AM onwards",
-    venue: "A260 Surya Nagar",
+    venue: "Home",
     venueStatus: "confirmed",
     sideVenues: {
       groom: "A260 Surya Nagar",
       bride: "T9/2201 Panchsheel Hynish",
+    },
+    sideImages: {
+      groom: "/assets/groom-house.jpeg",
+      bride: "/assets/bride-house.jpeg",
     },
     dress: "Old clothes / Yellow & White attire",
     description:
@@ -83,8 +90,8 @@ export const weddingEvents: WeddingEvent[] = [
     expandedDetails: [
       "Traditional turmeric paste ceremony with family blessings",
       "Fun-filled moments surrounded by closest family and friends",
-      "Morning refreshments and light breakfast spread",
-      "Venue details are shared according to the family side you are joining"
+      "Morning refreshments and light breakfast",
+      "Home location map"
     ],
     image: "/assets/evara.webp",
   },
@@ -102,10 +109,10 @@ export const weddingEvents: WeddingEvent[] = [
     expandedDetails: [
       "Grand Baraat procession with dhol drummers",
       "Varmala and sacred Pheras under the stars",
-      "Grand wedding feast featuring royal delicacies",
-      "Complimentary valet parking available at Evara"
+      "Wedding feast",
+      "Valet parking available at Evara"
     ],
-    image: "/assets/evara-banquet.webp",
+    image: "/assets/evara-banquet.jpeg",
   },
 ];
 
@@ -117,8 +124,7 @@ export interface StoryDialogue {
 
 export interface StoryBeat {
   id: string;
-  chapterNumber: string;
-  chapterTitle: string;
+  title: string;
   tag: string;
   intro?: string;
   dialogues?: StoryDialogue[];
@@ -136,9 +142,8 @@ export const storyPrelude = {
 export const storyBeats: StoryBeat[] = [
   {
     id: "the-cookie-debate",
-    chapterNumber: "01",
+    title: "The Cookie Recommendation",
     tag: "Colocal Debut",
-    chapterTitle: "The Cookie Recommendation",
     intro: "It started over a sweet recommendation...",
     dialogues: [
       { speaker: "She", name: "Mahek", text: "You have to try the chocolate cookie. It’s my favourite." },
@@ -154,9 +159,8 @@ export const storyBeats: StoryBeat[] = [
   },
   {
     id: "strangely-familiar",
-    chapterNumber: "02",
+    title: "Strangely Familiar",
     tag: "Shared Roots",
-    chapterTitle: "Strangely Familiar",
     intro: "As they talked about family, childhood, and the values that shaped them, they discovered how much they had in common.",
     dialogues: [
       { speaker: "She", name: "Mahek", text: "Your family does that too?" },
@@ -168,9 +172,8 @@ export const storyBeats: StoryBeat[] = [
   },
   {
     id: "the-coffee-question",
-    chapterNumber: "03",
+    title: "Coffee or Chai?",
     tag: "The Litmus Test",
-    chapterTitle: "Coffee or Chai?",
     intro: "Then came the most important question of all.",
     dialogues: [
       { speaker: "She", name: "Mahek", text: "Coffee or chai?" },
@@ -187,15 +190,14 @@ export const storyBeats: StoryBeat[] = [
   },
   {
     id: "forever-began",
-    chapterNumber: "04",
+    title: "To Forever & Beyond",
     tag: "The Beginning of Forever",
-    chapterTitle: "To Forever & Beyond",
     intro: "What began at one table, over one debatable cookie and a shared love for coffee, became a love they decided to take life ahead together.",
     reflection: "And just like that, their forever began.",
   },
 ];
 
-export interface StoryChapter {
+export interface StorySectionData {
   year: string;
   title: string;
   description: string;
@@ -204,9 +206,9 @@ export interface StoryChapter {
   bgGradient: string;
 }
 
-export const storyChapters: StoryChapter[] = [
+export const storySections: StorySectionData[] = [
   {
-    year: "Chapter 1",
+    year: "01",
     title: "A Debatable Cookie",
     description:
       "Theirs began at Colocal over her favourite chocolate cookie. After one bite: 'Really? This one?' — 'Yes. I stand by it.' She laughed. He stayed. And the cookie became the beginning of something far more meaningful.",
@@ -215,7 +217,7 @@ export const storyChapters: StoryChapter[] = [
     tag: "colocal debut",
   },
   {
-    year: "Chapter 2",
+    year: "02",
     title: "Strangely Familiar",
     description:
       "Talking about family, childhood, and values: 'Your family does that too?' — 'Exactly the same way.' — 'That’s strange.' — 'Or maybe familiar.'",
@@ -224,7 +226,7 @@ export const storyChapters: StoryChapter[] = [
     tag: "shared roots",
   },
   {
-    year: "Chapter 3",
+    year: "03",
     title: "Coffee or Chai?",
     description:
       "'Coffee or chai?' — 'Coffee.' — 'Good answer.' The conversation flowed effortlessly until hours flew by. One meeting became many, and friendship turned into something more.",

@@ -35,9 +35,13 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
         {weddingEvents.map((evt) => {
           const isExpanded = expandedKey === evt.key;
           const isTBA = evt.venueStatus === "tba";
-          const venue = evt.sideVenues
+          const venueAddress = evt.sideVenues
             ? evt.sideVenues[side === "prateek" ? "groom" : "bride"]
-            : evt.venue;
+            : undefined;
+          const venueLabel = venueAddress || evt.venue;
+          const eventImage = evt.sideImages
+            ? evt.sideImages[side === "prateek" ? "groom" : "bride"]
+            : evt.image;
 
           return (
             <div
@@ -77,8 +81,11 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
                   <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-muted-foreground font-sans mt-3">
                     <div className="flex items-center gap-1.5">
                       <MapPin className="w-4 h-4 text-primary shrink-0" />
-                      <span className={isTBA ? "italic text-muted-foreground" : "font-semibold text-secondary"}>
-                        {venue}
+                      <span
+                        title={venueAddress}
+                        className={isTBA ? "italic text-muted-foreground" : "font-semibold text-secondary"}
+                      >
+                        {venueLabel}
                       </span>
                     </div>
                   </div>
@@ -138,12 +145,16 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
                       )}
                     </div>
 
-                    {evt.image && (
-                      <div className="rounded-xl overflow-hidden shadow-sm border border-gold/20">
+                    {eventImage && (
+                      <div
+                        className="rounded-xl overflow-hidden shadow-sm border border-gold/20"
+                      >
                         <img
-                          src={evt.image}
+                          src={eventImage}
                           alt={evt.name}
-                          className="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
+                          className={`w-full h-48 object-cover hover:scale-105 transition-transform duration-500 ${
+                            evt.key === "mehendi" ? "object-[center_20%]" : ""
+                          }`}
                         />
                       </div>
                     )}

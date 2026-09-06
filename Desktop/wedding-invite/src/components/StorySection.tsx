@@ -1,5 +1,5 @@
 import React from "react";
-import { Coffee, Heart, Sparkles, MapPin } from "lucide-react";
+import { Coffee, Heart, Sparkles } from "lucide-react";
 
 export const StorySection: React.FC = () => {
   return (
@@ -50,9 +50,6 @@ export const StorySection: React.FC = () => {
 
             {/* Instance Header */}
             <div className="mb-3">
-              <span className="font-dm-mono text-[10px] tracking-[3px] uppercase text-gold-dark font-bold block mb-1">
-                Chapter 01 · Colocal Debut
-              </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-semibold">
                 The Cookie Recommendation
               </h3>
@@ -107,9 +104,6 @@ export const StorySection: React.FC = () => {
             </div>
 
             <div className="mb-3">
-              <span className="font-dm-mono text-[10px] tracking-[3px] uppercase text-gold-dark font-bold block mb-1">
-                Chapter 02 · Shared Roots
-              </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-semibold">
                 Strangely Familiar
               </h3>
@@ -151,9 +145,6 @@ export const StorySection: React.FC = () => {
             </div>
 
             <div className="mb-3">
-              <span className="font-dm-mono text-[10px] tracking-[3px] uppercase text-gold-dark font-bold block mb-1">
-                Chapter 03 · The Compatibility Test
-              </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-semibold">
                 Coffee or Chai?
               </h3>
@@ -217,9 +208,6 @@ export const StorySection: React.FC = () => {
             </div>
 
             <div className="mb-3">
-              <span className="font-dm-mono text-[10px] tracking-[3px] uppercase text-gold-dark font-bold block mb-1">
-                Chapter 04 · Forever Began
-              </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-semibold">
                 To Forever &amp; Beyond
               </h3>
@@ -233,25 +221,13 @@ export const StorySection: React.FC = () => {
               “And just like that, their forever began.”
             </p>
 
-            {/* Venue Polaroid Photo */}
+            {/* Story photo */}
             <div className="mt-6 max-w-md rounded-2xl overflow-hidden shadow-md border-4 border-white bg-white">
               <img
                 src="/assets/our-story.jpeg"
-                alt="Evara, Vasundhara"
+                alt="Mahek and Prateek"
                 className="w-full h-[19rem] sm:h-[15.5rem] object-cover object-[center_65%]"
               />
-              <div className="p-3.5 bg-white text-center">
-                <div className="flex items-center justify-center gap-1 text-primary text-xs font-semibold mb-0.5">
-                  <MapPin className="w-3 h-3 text-gold-dark" />
-                  <span>Evara, Vasundhara</span>
-                </div>
-                <p className="font-serif italic text-xs text-secondary">
-                  Friday, 12th December 2026
-                </p>
-                <span className="font-dm-mono text-[9px] uppercase tracking-wider text-muted-foreground mt-0.5 block">
-                  Where forever begins
-                </span>
-              </div>
             </div>
           </div>
 
