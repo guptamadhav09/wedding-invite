@@ -10,7 +10,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
   const [hovered, setHovered] = useState<Side | null>(null);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-start bg-[#fbf8ed] relative overflow-hidden px-4 pt-16 pb-6 text-[#513e30] sm:justify-center sm:py-10">
+    <section className="min-h-screen flex flex-col items-center justify-start bg-[#fbf8ed] relative overflow-hidden px-4 pt-12 pb-6 text-[#513e30] sm:justify-center sm:py-10">
       <div className="absolute inset-0 pointer-events-none opacity-45 bg-[radial-gradient(circle_at_50%_42%,rgba(224,191,113,0.13),transparent_48%)]" />
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
