@@ -70,7 +70,7 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
         <div
           className="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center relative shadow-lg transition-transform duration-300 hover:scale-105"
           style={{
-            background: "#a72d32", // Red wax-stamp seal
+            background: "#741f2b", // Deep burgundy wax-stamp seal
             border: "3px solid #dfd3c3", // Light beige outer border
             boxShadow: "0 8px 25px rgba(90, 75, 55, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.3)",
           }}

@@ -66,13 +66,16 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({ side = "mahek" }) 
 
       <div className="space-y-3">
         <h3 className="font-great-vibes text-4xl sm:text-5xl gold-text">
-          {side === "prateek" ? "Prateek" : "Mahek"} &amp; {side === "prateek" ? "Mahek" : "Prateek"}
+          Gupta &amp; Dhingra Family
         </h3>
-        <p className="text-xs sm:text-sm text-muted-foreground tracking-[0.25em] uppercase font-sans font-semibold">
-          Evara, Vasundhara · Delhi NCR
+        <p className="font-serif text-secondary text-sm sm:text-base pt-2">
+          Your presence will make our celebrations more beautiful.
         </p>
-        <p className="font-serif italic text-secondary text-sm sm:text-base pt-2">
-          With love, gratitude, and warm blessings from both families
+        <p className="font-serif italic text-secondary text-sm sm:text-base">
+          With love and warm blessings from
+          <span className="block font-semibold not-italic mt-1">
+            {side === "prateek" ? "Dhingra Family" : "Gupta Family"}
+          </span>
         </p>
       </div>
     </footer>
