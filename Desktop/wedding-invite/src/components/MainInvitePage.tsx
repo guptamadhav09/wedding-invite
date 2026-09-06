@@ -111,9 +111,9 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
         onClick={goBack}
         aria-label="Go back"
         title="Go back"
-        className="fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-[#d9c5a9] bg-[#fbf8f2]/95 text-[#765a3d] shadow-sm backdrop-blur-sm transition-colors hover:bg-[#765a3d] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6b4d]"
+        className="fixed top-3 left-3 z-50 flex h-8 w-8 items-center justify-center rounded-full border border-[#d9c5a9] bg-[#fbf8f2]/95 text-[#765a3d] shadow-sm backdrop-blur-sm transition-colors hover:bg-[#765a3d] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6b4d] sm:top-4 sm:left-4 sm:h-10 sm:w-10"
       >
-        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
       </button>
       <Navbar variant={variant} />
       <HeroSection variant={variant} side={activeSide} />
@@ -125,7 +125,7 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
 
       {/* Detailed Wedding Events List */}
       <ScrollReveal delay={120}>
-        <EventsSection />
+        <EventsSection side={activeSide} />
       </ScrollReveal>
 
       {/* Embedded RSVP Section */}

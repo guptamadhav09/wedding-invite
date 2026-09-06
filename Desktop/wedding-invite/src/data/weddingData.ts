@@ -10,6 +10,10 @@ export interface WeddingEvent {
   description: string;
   expandedDetails: string[];
   image?: string;
+  sideVenues?: {
+    groom: string;
+    bride: string;
+  };
 }
 
 export interface InviteeContact {
@@ -67,9 +71,12 @@ export const weddingEvents: WeddingEvent[] = [
     name: "Haldi Ceremony",
     date: "Friday, 12th December 2026",
     time: "9:00 AM onwards",
-    venue: "Evara, Vasundhara",
+    venue: "A260 Surya Nagar",
     venueStatus: "confirmed",
-    mapLink: "https://share.google/IKoSU02wwdxXIkSUl",
+    sideVenues: {
+      groom: "A260 Surya Nagar",
+      bride: "T9/2201 Panchsheel Hynish",
+    },
     dress: "Old clothes / Yellow & White attire",
     description:
       "Begin the wedding day with the golden glow of turmeric blessings. An intimate, joyful ceremony filled with laughter, love, and the warmth of family traditions.",
@@ -77,7 +84,7 @@ export const weddingEvents: WeddingEvent[] = [
       "Traditional turmeric paste ceremony with family blessings",
       "Fun-filled moments surrounded by closest family and friends",
       "Morning refreshments and light breakfast spread",
-      "Complimentary valet parking available at Evara"
+      "Venue details are shared according to the family side you are joining"
     ],
     image: "/assets/evara.webp",
   },

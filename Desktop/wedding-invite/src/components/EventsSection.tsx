@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { ChevronDown, MapPin, Clock, ExternalLink, Sparkles } from "lucide-react";
 import { weddingEvents } from "../data/weddingData";
+import type { Side } from "./SideSelector";
 
-export const EventsSection: React.FC = () => {
+interface EventsSectionProps {
+  side?: Side;
+}
+
+export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) => {
   const [expandedKey, setExpandedKey] = useState<string | null>("wedding");
 
   const toggleExpand = (key: string) => {
@@ -30,6 +35,9 @@ export const EventsSection: React.FC = () => {
         {weddingEvents.map((evt) => {
           const isExpanded = expandedKey === evt.key;
           const isTBA = evt.venueStatus === "tba";
+          const venue = evt.sideVenues
+            ? evt.sideVenues[side === "prateek" ? "groom" : "bride"]
+            : evt.venue;
 
           return (
             <div
@@ -70,7 +78,7 @@ export const EventsSection: React.FC = () => {
                     <div className="flex items-center gap-1.5">
                       <MapPin className="w-4 h-4 text-primary shrink-0" />
                       <span className={isTBA ? "italic text-muted-foreground" : "font-semibold text-secondary"}>
-                        {evt.venue}
+                        {venue}
                       </span>
                     </div>
                   </div>

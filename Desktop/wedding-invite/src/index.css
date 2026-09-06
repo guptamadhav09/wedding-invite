@@ -41,7 +41,7 @@
 }
 
 body {
-  background-color: hsl(var(--background));
+  background-color: #fbf8ed;
   color: hsl(var(--foreground));
   font-family: 'Quintessential', serif;
   overflow-x: hidden;
@@ -120,24 +120,16 @@ section[id] {
 }
 
 .scroll-reveal {
-  opacity: 0;
-  filter: blur(3px);
   transform: translateY(24px) scale(0.985);
-  transition: opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 750ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scroll-reveal.is-visible {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
-    opacity: 1;
-    filter: none;
     transform: none;
     transition: none;
   }

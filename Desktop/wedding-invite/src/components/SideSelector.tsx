@@ -23,7 +23,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
         </p>
 
         <p className="mt-8 sm:mt-10 text-xl sm:text-4xl tracking-[0.22em] uppercase text-[#60483a] font-sans font-bold">
-          The Wedding
+          The Wedding Of
         </p>
 
         <img
@@ -38,7 +38,13 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
           <span className="h-px w-8 sm:w-28 bg-[#b98b45]" />
         </div>
 
-        <div className="mt-8 sm:mt-10 flex w-full flex-row gap-2 sm:gap-5">
+        <div className="mt-6 text-xl text-[#a4772e]">✦</div>
+
+        <p className="mt-4 text-sm sm:text-base tracking-[0.16em] uppercase text-[#614b35] font-sans font-semibold">
+          Whose side are you celebrating with?
+        </p>
+
+        <div className="mt-6 sm:mt-8 flex w-full flex-row gap-2 sm:gap-5">
           <SideChoice
             side="prateek"
             hovered={hovered}
