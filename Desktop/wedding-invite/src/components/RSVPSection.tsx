@@ -341,7 +341,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
             </div>
 
             <div className="space-y-4">
-              {familyContacts.groom.map((c, i) => (
+              {(featuredContact ? [featuredContact] : familyContacts.groom).map((c, i) => (
                 <div key={i} className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[#fafcfb] border border-[#e5eeea]">
                   <div>
                     <p className="font-serif text-base sm:text-lg font-semibold text-secondary">

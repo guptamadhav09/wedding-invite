@@ -13,7 +13,7 @@ function InviteeInvitePage() {
   return (
     <MainInvitePage
       variant="full"
-      defaultSide="mahek"
+      defaultSide={contact.side === "groom" ? "prateek" : "mahek"}
       featuredContact={contact}
     />
   );

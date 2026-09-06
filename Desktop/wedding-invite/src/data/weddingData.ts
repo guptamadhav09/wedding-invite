@@ -17,6 +17,7 @@ export interface InviteeContact {
   phone: string;
   raw: string;
   relation?: string;
+  side: "groom" | "bride";
 }
 
 // Add future personalised invite links here. Each key becomes /<key>.
@@ -25,11 +26,19 @@ export const inviteeContacts: Record<string, InviteeContact> = {
     name: "Sachin",
     phone: "+91 98710 92255",
     raw: "919871092255",
+    side: "bride",
   },
   utkarsh: {
     name: "Utkarsh",
     phone: "+91 89026 14379",
     raw: "918902614379",
+    side: "bride",
+  },
+  vipulanddevika: {
+    name: "Vipul & Devika",
+    phone: "+91 98715 33510",
+    raw: "919871533510",
+    side: "groom",
   },
 };
 
@@ -122,8 +131,8 @@ export const storyBeats: StoryBeat[] = [
     id: "the-cookie-debate",
     chapterNumber: "01",
     tag: "Colocal Debut",
-    chapterTitle: "The Debatable Cookie",
-    intro: "It started over a recommendation that was subject to immediate peer review...",
+    chapterTitle: "The Cookie Recommendation",
+    intro: "It started over a sweet recommendation...",
     dialogues: [
       { speaker: "She", name: "Mahek", text: "You have to try the chocolate cookie. It’s my favourite." },
       { speaker: "He", name: "Prateek", text: "Your favourite? Now I have expectations." },
@@ -155,14 +164,15 @@ export const storyBeats: StoryBeat[] = [
     chapterNumber: "03",
     tag: "The Litmus Test",
     chapterTitle: "Coffee or Chai?",
-    intro: "Then came the most important question of all—the ultimate test of compatibility.",
+    intro: "Then came the most important question of all.",
     dialogues: [
       { speaker: "She", name: "Mahek", text: "Coffee or chai?" },
-      { speaker: "He", name: "Prateek", text: "Coffee." },
-      { speaker: "She", name: "Mahek", text: "Good answer." },
     ],
-    interlude: "The conversation flowed effortlessly—",
+    interlude: "Fingers crossed",
     secondaryDialogues: [
+      { speaker: "He", name: "Prateek", text: "Coffee, Always." },
+      { speaker: "She", name: "Mahek", text: "Amazinggggg" },
+      { speaker: "He", name: "Prateek", text: "Cheers!!!" },
       { speaker: "He", name: "Prateek", text: "We’ve been talking for a while." },
       { speaker: "She", name: "Mahek", text: "It doesn’t feel like it." },
     ],
@@ -173,11 +183,7 @@ export const storyBeats: StoryBeat[] = [
     chapterNumber: "04",
     tag: "The Beginning of Forever",
     chapterTitle: "To Forever & Beyond",
-    intro: "What began at one table, over one debatable cookie and a shared love for coffee, became a love they wanted to carry into everything ahead.",
-    dialogues: [
-      { speaker: "She", name: "Mahek", text: "Coffee?" },
-      { speaker: "He", name: "Prateek", text: "Always." },
-    ],
+    intro: "What began at one table, over one debatable cookie and a shared love for coffee, became a love they decided to take life ahead together.",
     reflection: "And just like that, their forever began.",
   },
 ];

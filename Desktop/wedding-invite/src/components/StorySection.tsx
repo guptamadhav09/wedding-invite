@@ -54,12 +54,12 @@ export const StorySection: React.FC = () => {
                 Chapter 01 · Colocal Debut
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-semibold">
-                The Cookie Debate
+                The Cookie Recommendation
               </h3>
             </div>
 
             <p className="font-sans text-xs sm:text-sm text-muted-foreground mb-4 italic">
-              It started over a recommendation that was subject to immediate review...
+              It started over a sweet recommendation...
             </p>
 
             {/* Dialogue stream */}
@@ -168,13 +168,24 @@ export const StorySection: React.FC = () => {
                 <span className="font-dm-mono text-[10px] tracking-wider uppercase text-primary font-bold mr-2">She:</span>
                 “Coffee or chai?”
               </p>
+
+              <div className="py-1">
+                <span className="font-caveat text-lg sm:text-xl text-gold-dark italic">
+                  — Fingers crossed —
+                </span>
+              </div>
+
               <p className="font-serif text-base sm:text-lg text-secondary leading-relaxed">
                 <span className="font-dm-mono text-[10px] tracking-wider uppercase text-gold-dark font-bold mr-2">He:</span>
-                “Coffee.”
+                “Coffee, Always.”
               </p>
               <p className="font-serif text-base sm:text-lg text-secondary leading-relaxed">
                 <span className="font-dm-mono text-[10px] tracking-wider uppercase text-primary font-bold mr-2">She:</span>
-                “Good answer.”
+                “Amazinggggg”
+              </p>
+              <p className="font-serif text-base sm:text-lg text-secondary leading-relaxed">
+                <span className="font-dm-mono text-[10px] tracking-wider uppercase text-gold-dark font-bold mr-2">He:</span>
+                “Cheers!!!”
               </p>
 
               <div className="py-1">
@@ -215,19 +226,8 @@ export const StorySection: React.FC = () => {
             </div>
 
             <p className="font-sans text-xs sm:text-sm text-muted-foreground mb-4">
-              What began at one table, over one debatable cookie and a shared love for coffee, became a love they wanted to carry into everything ahead.
+              What began at one table, over one debatable cookie and a shared love for coffee, became a love they decided to take life ahead together.
             </p>
-
-            <div className="space-y-2 py-3 my-3">
-              <p className="font-serif text-xl sm:text-2xl text-secondary font-medium">
-                <span className="font-dm-mono text-xs uppercase tracking-wider text-primary font-bold mr-2">She:</span>
-                “Coffee?”
-              </p>
-              <p className="font-serif text-xl sm:text-2xl text-secondary font-medium">
-                <span className="font-dm-mono text-xs uppercase tracking-wider text-gold-dark font-bold mr-2">He:</span>
-                “Always.”
-              </p>
-            </div>
 
             <p className="font-caveat text-2xl sm:text-3xl text-primary font-medium my-4">
               “And just like that, their forever began.”
