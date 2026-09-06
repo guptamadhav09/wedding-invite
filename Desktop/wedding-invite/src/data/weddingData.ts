@@ -6,6 +6,10 @@ export interface WeddingEvent {
   venue: string;
   venueStatus?: "confirmed" | "tba";
   mapLink?: string;
+  sideMapLinks?: {
+    groom: string;
+    bride: string;
+  };
   dress: string;
   description: string;
   expandedDetails: string[];
@@ -54,10 +58,11 @@ export const weddingEvents: WeddingEvent[] = [
   {
     key: "mehendi",
     name: "Mehendi & Ring Ceremony",
-    date: "Thursday, 11th December 2026",
+    date: "Friday, 11th December 2026",
     time: "4:00 PM onwards",
-    venue: "Venue to be finalised",
+    venue: "Peach- Microbrewery Sector 98",
     venueStatus: "tba",
+    mapLink: "https://maps.app.goo.gl/BqDtLnz4TnzeVZYR8",
     dress: "Vibrant Indian Attire / Bright Pastels",
     description:
       "An enchanting afternoon of intricate henna artistry, the joyful exchange of rings, live music, delicious bites, and cheerful celebrations.",
@@ -72,13 +77,17 @@ export const weddingEvents: WeddingEvent[] = [
   {
     key: "haldi",
     name: "Haldi Ceremony",
-    date: "Friday, 12th December 2026",
+    date: "Saturday, 12th December 2026",
     time: "9:00 AM onwards",
     venue: "Home",
     venueStatus: "confirmed",
     sideVenues: {
       groom: "A260 Surya Nagar",
       bride: "T9/2201 Panchsheel Hynish",
+    },
+    sideMapLinks: {
+      groom: "https://share.google/RZQOTAPf40sfQZznA",
+      bride: "https://share.google/OkgQ3EFEp2YGqAZd9",
     },
     sideImages: {
       groom: "/assets/groom-house.jpeg",
@@ -98,7 +107,7 @@ export const weddingEvents: WeddingEvent[] = [
   {
     key: "wedding",
     name: "Wedding Ceremony",
-    date: "Friday, 12th December 2026",
+    date: "Saturday, 12th December 2026",
     time: "7:00 PM onwards",
     venue: "Evara, Vasundhara",
     venueStatus: "confirmed",
@@ -260,7 +269,7 @@ export interface TimelineItem {
 
 export const timelineData: TimelineItem[] = [
   {
-    day: "Thu",
+    day: "Fri",
     date: "11",
     loc: "Delhi NCR",
     act: "Mehendi & Ring",
@@ -270,7 +279,7 @@ export const timelineData: TimelineItem[] = [
     annotation: { lines: ["Venue to be announced", "4:00 PM onwards"] },
   },
   {
-    day: "Fri",
+    day: "Sat",
     date: "12",
     loc: "Vasundhara",
     act: "Haldi & Wedding",

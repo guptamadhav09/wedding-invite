@@ -14,18 +14,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
 
   function calculateTimeLeft() {
     const now = new Date().getTime();
-    let target = new Date("2026-12-12T19:00:00+05:30").getTime();
-    let diff = target - now;
-
-    // If target is in the past relative to system clock, target December 12 of current year
-    if (diff <= 0) {
-      target = new Date(`${new Date().getFullYear()}-12-12T19:00:00+05:30`).getTime();
-      diff = target - now;
-      if (diff <= 0) {
-        target = new Date(`${new Date().getFullYear() + 1}-12-12T19:00:00+05:30`).getTime();
-        diff = target - now;
-      }
-    }
+    const target = new Date("2026-12-12T19:00:00+05:30").getTime();
+    const diff = Math.max(0, target - now);
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

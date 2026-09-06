@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown, MapPin, Clock, ExternalLink, Sparkles } from "lucide-react";
+import { ChevronDown, MapPin, Clock, ExternalLink } from "lucide-react";
 import { weddingEvents } from "../data/weddingData";
 import type { Side } from "./SideSelector";
 
@@ -34,11 +34,13 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
       <div className="max-w-4xl mx-auto space-y-6">
         {weddingEvents.map((evt) => {
           const isExpanded = expandedKey === evt.key;
-          const isTBA = evt.venueStatus === "tba";
           const venueAddress = evt.sideVenues
             ? evt.sideVenues[side === "prateek" ? "groom" : "bride"]
             : undefined;
           const venueLabel = venueAddress || evt.venue;
+          const mapLink = evt.sideMapLinks
+            ? evt.sideMapLinks[side === "prateek" ? "groom" : "bride"]
+            : evt.mapLink;
           const eventImage = evt.sideImages
             ? evt.sideImages[side === "prateek" ? "groom" : "bride"]
             : evt.image;
@@ -52,7 +54,7 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
             >
               <div
                 onClick={() => toggleExpand(evt.key)}
-                className="p-6 sm:p-8 cursor-pointer flex flex-col md:flex-row gap-6 items-start md:items-center justify-between"
+                className="p-4 sm:p-6 cursor-pointer flex flex-col md:flex-row gap-4 sm:gap-5 items-start md:items-center justify-between"
               >
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2.5 mb-2.5">
@@ -63,15 +65,6 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
                     <span className="font-sans text-xs text-muted-foreground flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-primary" /> {evt.time}
                     </span>
-                    {isTBA ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-dm-mono uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 font-semibold">
-                        <Sparkles className="w-2.5 h-2.5" /> Venue to be announced
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-dm-mono uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold">
-                        Confirmed Venue
-                      </span>
-                    )}
                   </div>
 
                   <h3 className="font-serif text-2xl sm:text-3xl text-secondary font-bold mb-2">
@@ -83,7 +76,7 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
                       <MapPin className="w-4 h-4 text-primary shrink-0" />
                       <span
                         title={venueAddress}
-                        className={isTBA ? "italic text-muted-foreground" : "font-semibold text-secondary"}
+                        className="font-semibold text-secondary"
                       >
                         {venueLabel}
                       </span>
@@ -129,16 +122,18 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
                         ))}
                       </ul>
 
-                      {evt.mapLink && (
+                      {mapLink && (
                         <div className="mt-6">
                           <a
-                            href={evt.mapLink}
+                            href={mapLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-dm-mono uppercase tracking-wider font-semibold shadow-sm hover:bg-secondary transition-colors"
                           >
                             <MapPin className="w-3.5 h-3.5 text-gold-light" />
-                            <span>Open Evara in Google Maps</span>
+                            <span>
+                              Open {evt.key === "haldi" ? "Home" : evt.key === "mehendi" ? "Mehendi Venue" : "Evara"} in Google Maps
+                            </span>
                             <ExternalLink className="w-3.5 h-3.5 ml-1 opacity-70" />
                           </a>
                         </div>
