@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Check, Sparkles, Phone, MessageCircle } from "lucide-react";
 import type { Side } from "./SideSelector";
+import type { InviteeContact } from "../data/weddingData";
 
 interface RSVPSectionProps {
   side?: Side;
   embedded?: boolean;
+  featuredContact?: InviteeContact;
 }
 
 export interface RSVPRecord {
@@ -30,12 +32,14 @@ export const familyContacts = {
   bride: [
     { name: "Veenu Gupta", phone: "+91 99118 67070", raw: "919911867070" },
     { name: "Haresh Kumar Gupta", phone: "+91 99114 59501", raw: "919911459501" },
+    { name: "Madhav", phone: "+91 98217 07186", raw: "919821707186", relation: "Brother" },
   ],
 };
 
 export const RSVPSection: React.FC<RSVPSectionProps> = ({
   side = "mahek",
   embedded = false,
+  featuredContact,
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -405,7 +409,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
             </div>
 
             <div className="space-y-4">
-              {familyContacts.bride.map((c, i) => (
+              {(featuredContact ? [featuredContact] : familyContacts.bride).map((c, i) => (
                 <div key={i} className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[#fdfbfa] border border-[#f2e7ea]">
                   <div>
                     <p className="font-serif text-base sm:text-lg font-semibold text-secondary">

@@ -10,10 +10,12 @@ import { EventsSection } from "./EventsSection";
 import { RSVPSection } from "./RSVPSection";
 import { WeddingFooter } from "./WeddingFooter";
 import { FloatingRSVP } from "./FloatingRSVP";
+import type { InviteeContact } from "../data/weddingData";
 
 interface MainInvitePageProps {
   variant?: "full" | "rsvp" | "info" | "reception" | "mehndi-6th";
   defaultSide?: Side;
+  featuredContact?: InviteeContact;
 }
 
 const ScrollReveal: React.FC<{
@@ -55,6 +57,7 @@ const ScrollReveal: React.FC<{
 export const MainInvitePage: React.FC<MainInvitePageProps> = ({
   variant = "full",
   defaultSide,
+  featuredContact,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -127,7 +130,7 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
 
       {/* Embedded RSVP Section */}
       <ScrollReveal delay={160}>
-        <RSVPSection side={activeSide} />
+        <RSVPSection side={activeSide} featuredContact={featuredContact} />
       </ScrollReveal>
 
       {/* Footer */}

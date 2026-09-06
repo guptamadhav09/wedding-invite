@@ -1,5 +1,23 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
 import { MainInvitePage } from "./components/MainInvitePage";
+import { inviteeContacts } from "./data/weddingData";
+
+function InviteeInvitePage() {
+  const { inviteeSlug } = useParams();
+  const contact = inviteeSlug ? inviteeContacts[inviteeSlug.toLowerCase()] : undefined;
+
+  if (!contact) {
+    return <NotFound />;
+  }
+
+  return (
+    <MainInvitePage
+      variant="full"
+      defaultSide="mahek"
+      featuredContact={contact}
+    />
+  );
+}
 
 function NotFound() {
   return (
@@ -31,6 +49,7 @@ export function App() {
         {/* Specific webpages for Bride's side */}
         <Route path="/bride" element={<MainInvitePage variant="full" defaultSide="mahek" />} />
         <Route path="/mahek" element={<MainInvitePage variant="full" defaultSide="mahek" />} />
+        <Route path="/:inviteeSlug" element={<InviteeInvitePage />} />
         
         <Route path="/rsvp" element={<MainInvitePage variant="rsvp" />} />
         <Route path="/info" element={<MainInvitePage variant="info" />} />

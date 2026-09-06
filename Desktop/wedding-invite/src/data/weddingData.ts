@@ -12,6 +12,22 @@ export interface WeddingEvent {
   image?: string;
 }
 
+export interface InviteeContact {
+  name: string;
+  phone: string;
+  raw: string;
+  relation?: string;
+}
+
+// Add future personalised invite links here. Each key becomes /<key>.
+export const inviteeContacts: Record<string, InviteeContact> = {
+  sachin: {
+    name: "Sachin",
+    phone: "+91 98710 92255",
+    raw: "919871092255",
+  },
+};
+
 export const weddingEvents: WeddingEvent[] = [
   {
     key: "mehendi",
