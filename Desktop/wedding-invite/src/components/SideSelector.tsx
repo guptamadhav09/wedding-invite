@@ -10,151 +10,109 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
   const [hovered, setHovered] = useState<Side | null>(null);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-[#faf7f2] relative overflow-hidden py-8 sm:py-16 px-4">
-      {/* Soft warm luxury ambient background glow */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 30%, hsl(var(--gold) / 0.18) 0%, transparent 65%)",
-        }}
-      />
+    <section className="min-h-screen flex flex-col items-center justify-center bg-[#fbf8ed] relative overflow-hidden px-4 py-8 sm:py-10 text-[#513e30]">
+      <div className="absolute inset-0 pointer-events-none opacity-45 bg-[radial-gradient(circle_at_50%_42%,rgba(224,191,113,0.13),transparent_48%)]" />
 
-      {/* ── Sacred Auspicious Invocation ── */}
-      <div className="flex items-center gap-3 mb-3 sm:mb-5 relative z-10">
-        <span className="text-gold text-sm sm:text-base">✦</span>
-        <p className="font-tiro text-sm sm:text-base tracking-[0.3em] text-[#8a6828] font-semibold select-none">
+      <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
+        <p className="font-tiro text-xl sm:text-3xl tracking-[0.24em] text-[#a4772e] font-semibold select-none">
           ॥ श्री गणेशाय नमः ॥
         </p>
-        <span className="text-gold text-sm sm:text-base">✦</span>
-      </div>
 
-      {/* ── Header ── */}
-      <div className="flex flex-col items-center mb-9 sm:mb-12 relative z-10 text-center px-4 max-w-3xl">
-        {/* Family invitation line */}
-        <p className="font-serif italic text-[#4a3622] text-lg sm:text-3xl md:text-4xl mb-4 sm:mb-6 font-medium tracking-wide leading-relaxed max-w-4xl">
+        <p className="mt-8 sm:mt-10 max-w-2xl font-serif italic text-2xl sm:text-4xl leading-[1.25] tracking-wide text-[#4f392d]">
           The Dhingra &amp; Gupta families joyfully invite you to celebrate
         </p>
 
-        <p className="text-xs sm:text-sm tracking-[0.32em] uppercase text-[#7d654c] font-sans font-bold mb-3 sm:mb-4">
-          The Wedding Celebration Of
+        <p className="mt-8 sm:mt-10 text-xl sm:text-4xl tracking-[0.22em] uppercase text-[#60483a] font-sans font-bold">
+          The Wedding
         </p>
 
-        {/* First slide: Prateek & Mahek */}
-        <h1
-          className="font-serif text-[#2d1f14] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl my-1 sm:my-2"
-        >
-          <span>Prateek</span>
-          <span className="font-great-vibes text-gold font-normal px-3 sm:px-4 text-[1.1em] align-baseline">
-            &amp;
-          </span>
-          <span>Mahek</span>
-        </h1>
+        <img
+          src="/assets/mahekandprateek.png"
+          alt="Mahek and Prateek"
+          className="mt-5 sm:mt-6 h-[19rem] sm:h-[27rem] w-auto max-w-[92vw] object-contain drop-shadow-[0_16px_18px_rgba(83,58,40,0.12)]"
+        />
 
-        {/* Date & Venue */}
-        <p className="font-serif text-[#3b2a1a] text-sm sm:text-lg md:text-xl tracking-[0.14em] font-semibold mt-3 sm:mt-4 mb-1 sm:mb-2">
-          12 December 2026 &nbsp;·&nbsp; Evara, Vasundhara
-        </p>
-
-        <div className="dishoom-divider my-4 sm:my-6 scale-100">
-          <span>✦</span>
+        <div className="mt-3 flex items-center gap-2 sm:gap-8 font-serif text-sm sm:text-2xl tracking-[0.08em] sm:tracking-[0.12em] font-semibold text-[#4d392c]">
+          <span className="h-px w-8 sm:w-28 bg-[#b98b45]" />
+          <span className="whitespace-nowrap">12 December 2026&nbsp; · &nbsp;Evara, Vasundhara</span>
+          <span className="h-px w-8 sm:w-28 bg-[#b98b45]" />
         </div>
 
-        <p className="text-sm sm:text-base tracking-[0.16em] uppercase text-[#614b35] font-sans font-semibold">
-          Whose side are you celebrating with?
-        </p>
-      </div>
-
-      {/* ── Side choices ── */}
-      <div className="flex flex-row gap-4 sm:gap-6 px-1 w-full max-w-3xl justify-center relative z-10">
-
-        {/* ── CARD 1: TEAM GROOM (Prateek) — Warm Luminous Pista Sage ── */}
-        <button
-          onClick={() => onSelect("prateek")}
-          onMouseEnter={() => setHovered("prateek")}
-          onMouseLeave={() => setHovered(null)}
-          aria-label="Enter celebration as Groom's guest (Prateek)"
-          className={`group relative w-full flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#8a6b4d]
-            transition-all duration-300 rounded-lg overflow-hidden border shadow-sm text-left
-            ${
-              hovered === "prateek"
-                ? "scale-[1.01] sm:scale-[1.03] shadow-md border-[#d8c3a8] bg-[#eee1cf]"
-                : "border-[#e4d4be] bg-[#f5eee3]"
-            }
-            ${hovered === "mahek" ? "opacity-60 scale-[0.99] sm:scale-[0.98]" : "opacity-100"}`}
-        >
-          <div className="relative z-10 flex items-center p-2 sm:p-4 gap-2 sm:gap-3">
-            
-            {/* Monogram + Text Info */}
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-              {/* Simple side marker */}
-              <img
-                src="/assets/boy-icon.png"
-                alt=""
-                className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-
-              {/* Text Info */}
-              <div className="flex flex-col text-left min-w-0">
-                <span className="text-[8px] sm:text-[10px] tracking-[0.15em] uppercase font-dm-mono font-bold text-[#765a3d] truncate">
-                  Team Groom
-                </span>
-                <h2 className="text-lg sm:text-xl font-serif font-bold tracking-wide text-[#432f22] leading-tight">
-                  Prateek
-                </h2>
-                <p className="text-[9px] sm:text-xs font-serif italic text-[#876d54] font-medium truncate">
-                  Groom's side
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </button>
-
-        {/* ── CARD 2: TEAM BRIDE (Mahek) — Warm Luminous Gulabi Blush ── */}
-        <button
-          onClick={() => onSelect("mahek")}
-          onMouseEnter={() => setHovered("mahek")}
-          onMouseLeave={() => setHovered(null)}
-          aria-label="Enter celebration as Bride's guest (Mahek)"
-          className={`group relative w-full flex-1 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#8a6b4d]
-            transition-all duration-300 rounded-lg overflow-hidden border shadow-sm text-left
-            ${
-              hovered === "mahek"
-                ? "scale-[1.01] sm:scale-[1.03] shadow-md border-[#d8c3a8] bg-[#eee1cf]"
-                : "border-[#e4d4be] bg-[#f5eee3]"
-            }
-            ${hovered === "prateek" ? "opacity-60 scale-[0.99] sm:scale-[0.98]" : "opacity-100"}`}
-        >
-          <div className="relative z-10 flex items-center p-2 sm:p-4 gap-2 sm:gap-3">
-            
-            {/* Monogram + Text Info */}
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-              {/* Simple side marker */}
-              <img
-                src="/assets/girl-icon.png"
-                alt=""
-                className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-
-              {/* Text Info */}
-              <div className="flex flex-col text-left min-w-0">
-                <span className="text-[8px] sm:text-[10px] tracking-[0.15em] uppercase font-dm-mono font-bold text-[#765a3d] truncate">
-                  Team Bride
-                </span>
-                <h2 className="text-lg sm:text-xl font-serif font-bold tracking-wide text-[#432f22] leading-tight">
-                  Mahek
-                </h2>
-                <p className="text-[9px] sm:text-xs font-serif italic text-[#876d54] font-medium truncate">
-                  Bride's side
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </button>
-
+        <div className="mt-8 sm:mt-10 flex w-full flex-row gap-2 sm:gap-5">
+          <SideChoice
+            side="prateek"
+            hovered={hovered}
+            setHovered={setHovered}
+            onSelect={onSelect}
+            image="/assets/boy-icon.png"
+            team="Team Groom"
+            name="Prateek"
+            relation="Groom's side"
+          />
+          <SideChoice
+            side="mahek"
+            hovered={hovered}
+            setHovered={setHovered}
+            onSelect={onSelect}
+            image="/assets/girl-icon.png"
+            team="Team Bride"
+            name="Mahek"
+            relation="Bride's side"
+          />
+        </div>
       </div>
     </section>
   );
 };
+
+interface SideChoiceProps {
+  side: Side;
+  hovered: Side | null;
+  setHovered: (side: Side | null) => void;
+  onSelect: (side: Side) => void;
+  image: string;
+  team: string;
+  name: string;
+  relation: string;
+}
+
+const SideChoice: React.FC<SideChoiceProps> = ({
+  side,
+  hovered,
+  setHovered,
+  onSelect,
+  image,
+  team,
+  name,
+  relation,
+}) => (
+  <button
+    type="button"
+    onClick={() => onSelect(side)}
+    onMouseEnter={() => setHovered(side)}
+    onMouseLeave={() => setHovered(null)}
+    aria-label={`Enter celebration as ${relation}`}
+    className={`group flex min-h-[7.5rem] min-w-0 flex-1 items-center gap-1.5 rounded-xl border px-1 py-2 text-left shadow-[0_3px_12px_rgba(93,65,40,0.05)] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#a4772e] sm:gap-3 sm:px-2 sm:py-2 ${
+      hovered === side
+        ? "-translate-y-1 border-[#b98b45] bg-[#fffdf5] shadow-[0_8px_20px_rgba(93,65,40,0.13)]"
+        : "border-[#e4d4bd] bg-[#fdf9ee]"
+    } ${hovered && hovered !== side ? "opacity-65" : "opacity-100"}`}
+  >
+    <img
+      src={image}
+      alt=""
+      className="h-20 w-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-24 sm:w-20"
+    />
+    <span className="ml-4 min-w-0 sm:ml-6">
+      <span className="block truncate text-[10px] font-dm-mono font-bold uppercase tracking-[0.08em] text-[#80644f] sm:text-xs sm:tracking-[0.14em]">
+        {team}
+      </span>
+      <span className="mt-1.5 block truncate font-serif text-2xl font-bold leading-none text-[#4b3428] sm:text-3xl">
+        {name}
+      </span>
+      <span className="mt-1.5 block truncate font-serif text-[15px] font-semibold italic text-[#987c65] sm:text-[17px]">
+        {relation}
+      </span>
+    </span>
+  </button>
+);
