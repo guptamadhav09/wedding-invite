@@ -26,6 +26,11 @@ export const inviteeContacts: Record<string, InviteeContact> = {
     phone: "+91 98710 92255",
     raw: "919871092255",
   },
+  utkarsh: {
+    name: "Utkarsh",
+    phone: "+91 89026 14379",
+    raw: "918902614379",
+  },
 };
 
 export const weddingEvents: WeddingEvent[] = [
