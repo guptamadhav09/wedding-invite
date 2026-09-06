@@ -47,8 +47,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
     >
       {/* The photo stays soft above the invitation; the lower wash removes it behind text. */}
       <div
-        className="absolute inset-[-14px] pointer-events-none z-0 origin-top -translate-y-64 scale-[0.94] bg-cover bg-[center_top] blur-[4px] sm:-translate-y-72 sm:scale-[1]"
-        style={{ backgroundImage: "url('/assets/home-hero.jpeg')" }}
+        className="absolute inset-0 pointer-events-none z-0 origin-top -translate-y-96 scale-[1.06] bg-cover bg-[center_top] blur-[4px] sm:-translate-y-[28rem] sm:scale-[1.03]"
+        style={{ backgroundImage: "url('/assets/home-hero.png')" }}
       />
       <div
         className="absolute inset-0 pointer-events-none z-0"
