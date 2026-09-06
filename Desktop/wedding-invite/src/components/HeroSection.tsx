@@ -43,14 +43,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-between items-center bg-[#faf7f2] pt-16 sm:pt-20 pb-16 px-4"
+      className="relative min-h-screen flex flex-col justify-between items-center overflow-hidden bg-[#f7eee3] px-4 pb-10 pt-14 sm:pt-16 sm:pb-14"
     >
-      {/* Soft luxury ambient background lighting (NO background image) */}
+      {/* The photo stays soft above the invitation; the lower wash removes it behind text. */}
+      <div
+        className="absolute inset-[-14px] pointer-events-none z-0 origin-top -translate-y-64 scale-[0.94] bg-cover bg-[center_top] blur-[4px] sm:-translate-y-72 sm:scale-[1]"
+        style={{ backgroundImage: "url('/assets/home-hero.jpeg')" }}
+      />
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           background:
-            "radial-gradient(circle at 50% 35%, hsl(var(--gold) / 0.15) 0%, transparent 70%)",
+            "linear-gradient(180deg, rgba(250,244,232,0.2) 0%, rgba(250,244,232,0.28) 29%, rgba(250,244,232,0.78) 43%, #f7eee3 59%, #f7eee3 100%)",
         }}
       />
 
@@ -58,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
       <div className="h-2 sm:h-6" />
 
       {/* ── Main Hero Content (Always 100% visible, no fading or disappearing) ── */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto my-auto py-4 sm:py-6">
+      <div className="relative z-10 flex w-full max-w-3xl translate-y-28 flex-col items-center text-center mx-auto my-auto py-4 sm:translate-y-24 sm:py-6">
         {/* ── Sacred Auspicious Invocation: Lord Ganesha (Bhagwan Ji) ── */}
         <div className="flex flex-col items-center justify-center mb-5 sm:mb-7">
           {/* Elegant Golden Ganesha Line-Art Motif */}
@@ -106,12 +110,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </div>
 
         {/* THE WEDDING OF */}
-        <p className="font-serif tracking-[0.35em] text-xs sm:text-sm uppercase text-[#b69963] font-semibold mb-3 sm:mb-5">
+        <p className="font-sans tracking-[0.34em] text-xs sm:text-sm uppercase text-[#6f4c3c] font-semibold mb-3 sm:mb-5">
           The Wedding Of
         </p>
 
         {/* Couple Names — Groom first if groom's side selected, Bride first if bride's side selected */}
-        <h1 className="font-serif text-[#3d2b1f] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
+        <h1 className="font-serif text-[#4a2528] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
           <span>{side === "prateek" ? "Prateek" : "Mahek"}</span>
           <span className="font-great-vibes text-gold font-normal px-2.5 sm:px-4 text-[1.1em] align-baseline">
             &amp;
@@ -120,23 +124,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </h1>
 
         {/* Thin Gold Divider Line */}
-        <div className="w-48 sm:w-64 h-[1.5px] bg-[#cbb085]/60 mx-auto my-5 sm:my-6" />
+        <div className="w-48 sm:w-64 h-[1.5px] bg-[#ae8038]/75 mx-auto my-5 sm:my-6" />
 
         {/* Date */}
-        <p className="font-serif text-xl sm:text-2xl text-[#523d2e] tracking-wide font-medium mb-1.5">
+        <p className="font-serif text-xl sm:text-2xl text-[#53352d] tracking-wide font-medium mb-1.5">
           December 12, 2026
         </p>
 
         {/* Venue */}
-        <p className="font-serif text-xs sm:text-sm tracking-[0.28em] uppercase text-[#7d6453] font-semibold">
+        <p className="font-sans text-xs sm:text-sm tracking-[0.28em] uppercase text-[#795747] font-semibold">
           Evara, Vasundhara
         </p>
 
         {/* ── 4 Countdown Timer Cards ── */}
-        <div className="flex items-center justify-center gap-2.5 sm:gap-4 mt-8 sm:mt-10">
+        <div className="flex items-center justify-center gap-2 sm:gap-3.5 mt-8 sm:mt-10">
           {/* DAYS */}
-          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
-            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.days).padStart(2, "0")}
             </span>
             <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
@@ -145,8 +149,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
           </div>
 
           {/* HOURS */}
-          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
-            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.hours).padStart(2, "0")}
             </span>
             <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
@@ -155,8 +159,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
           </div>
 
           {/* MINUTES */}
-          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
-            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.minutes).padStart(2, "0")}
             </span>
             <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">
@@ -165,8 +169,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
           </div>
 
           {/* SECONDS */}
-          <div className="w-18 h-22 sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa] border border-[#e8dfd3] shadow-md flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
-            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#661b24] leading-none">
+          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+            <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.seconds).padStart(2, "0")}
             </span>
             <span className="font-sans text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-[#887063] font-semibold mt-1.5">

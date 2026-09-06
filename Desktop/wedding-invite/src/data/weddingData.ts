@@ -60,7 +60,7 @@ export const weddingEvents: WeddingEvent[] = [
     name: "Mehendi & Ring Ceremony",
     date: "Friday, 11th December 2026",
     time: "4:00 PM onwards",
-    venue: "Peach- Microbrewery Sector 98",
+    venue: "Peach Sector 98, Noida",
     venueStatus: "tba",
     mapLink: "https://maps.app.goo.gl/BqDtLnz4TnzeVZYR8",
     dress: "Vibrant Indian Attire / Bright Pastels",
