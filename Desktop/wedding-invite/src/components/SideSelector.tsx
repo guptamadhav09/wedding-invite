@@ -38,9 +38,9 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
           <span className="h-px w-8 sm:w-28 bg-[#b98b45]" />
         </div>
 
-        <div className="mt-4 text-xl text-[#a4772e]">✦</div>
+        <div className="mt-1 text-xl text-[#a4772e]">✦</div>
 
-        <p className="mt-2 text-sm sm:mt-4 sm:text-base tracking-[0.16em] uppercase text-[#614b35] font-sans font-semibold">
+        <p className="mt-1 text-sm sm:mt-2 sm:text-base tracking-[0.16em] uppercase text-[#614b35] font-sans font-semibold">
           Whose side are you celebrating with?
         </p>
 
