@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Check, Sparkles, Phone, MessageCircle } from "lucide-react";
 import type { Side } from "./SideSelector";
 import type { InviteeContact } from "../data/weddingData";
+import { ScrollReveal } from "./ScrollReveal";
 
 interface RSVPSectionProps {
   side?: Side;
   embedded?: boolean;
   featuredContact?: InviteeContact;
+  includeMehendi?: boolean;
 }
 
 export interface RSVPRecord {
@@ -28,10 +30,11 @@ export const familyContacts = {
   groom: [
     { name: "Kavita Dhingra", phone: "+91 99109 83781", raw: "919910983781" },
     { name: "Deepak Dhingra", phone: "+91 99992 54398", raw: "919999254398" },
+    { name: "Vipul & Devika", phone: "+91 98715 33535", raw: "919871533535" },
   ],
   bride: [
     { name: "Veenu Gupta", phone: "+91 99118 67070", raw: "919911867070" },
-    { name: "Haresh Kumar Gupta", phone: "+91 99114 59501", raw: "919911459501" },
+    { name: "Haresh Gupta", phone: "+91 99114 59501", raw: "919911459501" },
     { name: "Madhav", phone: "+91 98217 07186", raw: "919821707186", relation: "Brother" },
   ],
 };
@@ -40,6 +43,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
   side = "mahek",
   embedded = false,
   featuredContact,
+  includeMehendi = false,
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -49,10 +53,16 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
     name: "",
     contact: "",
     guests: "1",
-    events: ["mehendi", "haldi", "wedding"],
+    events: includeMehendi ? ["mehendi", "haldi", "wedding"] : ["haldi", "wedding"],
     dietary: "",
     message: "",
   });
+
+  const [activeContactSide, setActiveContactSide] = useState<Side>(side);
+
+  useEffect(() => {
+    setActiveContactSide(side);
+  }, [side]);
 
   const toggleEvent = (eventKey: string) => {
     setFormData((prev) => {
@@ -227,7 +237,9 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
           </label>
           <div className="grid grid-cols-1 gap-2">
             {[
-              { key: "mehendi", label: "Mehendi & Ring Ceremony (11th Dec)" },
+              ...(includeMehendi
+                ? [{ key: "mehendi", label: "Mehendi & Ring Ceremony (11th Dec)" }]
+                : []),
               { key: "haldi", label: "Haldi Ceremony (12th Dec — Morning)" },
               { key: "wedding", label: "Wedding Ceremony (12th Dec — Evening)" },
             ].map((evt) => {
@@ -296,12 +308,6 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
     );
   }
 
-  const [activeContactSide, setActiveContactSide] = useState<Side>(side);
-
-  useEffect(() => {
-    setActiveContactSide(side);
-  }, [side]);
-
   return (
     <section id="rsvp" className="py-20 sm:py-28 px-4 sm:px-6 bg-[#faf8f5] relative scroll-mt-24">
       {/* ── Section Header ── */}
@@ -342,7 +348,8 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
 
             <div className="space-y-4">
               {(featuredContact ? [featuredContact] : familyContacts.groom).map((c, i) => (
-                <div key={i} className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[#fafcfb] border border-[#e5eeea]">
+                <ScrollReveal key={c.raw} delay={i * 70} variant="left">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[#fafcfb] border border-[#e5eeea]">
                   <div>
                     <p className="font-serif text-base sm:text-lg font-semibold text-secondary">
                       {c.name}
@@ -378,6 +385,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     </a>
                   </div>
                 </div>
+                </ScrollReveal>
               ))}
             </div>
 
@@ -410,7 +418,8 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
 
             <div className="space-y-4">
               {(featuredContact ? [featuredContact] : familyContacts.bride).map((c, i) => (
-                <div key={i} className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[#fdfbfa] border border-[#f2e7ea]">
+                <ScrollReveal key={c.raw} delay={i * 70} variant="right">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl bg-[#fdfbfa] border border-[#f2e7ea]">
                   <div>
                     <p className="font-serif text-base sm:text-lg font-semibold text-secondary">
                       {c.name}
@@ -446,6 +455,7 @@ export const RSVPSection: React.FC<RSVPSectionProps> = ({
                     </a>
                   </div>
                 </div>
+                </ScrollReveal>
               ))}
             </div>
 

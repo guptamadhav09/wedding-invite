@@ -74,7 +74,7 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({ side = "mahek" }) 
         <p className="font-serif italic text-secondary text-sm sm:text-base">
           With love and warm blessings from
           <span className="block font-semibold not-italic mt-1">
-            {side === "prateek" ? "Dhingra Family" : "Gupta Family"}
+            {side === "prateek" ? "Dhingra Family" : "Gupta & Narula Family"}
           </span>
         </p>
       </div>

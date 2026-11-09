@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { SideSelector, type Side } from "./SideSelector";
@@ -10,54 +10,21 @@ import { EventsSection } from "./EventsSection";
 import { RSVPSection } from "./RSVPSection";
 import { WeddingFooter } from "./WeddingFooter";
 import { FloatingRSVP } from "./FloatingRSVP";
+import { ScrollReveal } from "./ScrollReveal";
 import type { InviteeContact } from "../data/weddingData";
 
 interface MainInvitePageProps {
   variant?: "full" | "rsvp" | "info" | "reception" | "mehndi-6th";
   defaultSide?: Side;
   featuredContact?: InviteeContact;
+  includeMehendi?: boolean;
 }
-
-const ScrollReveal: React.FC<{
-  children: React.ReactNode;
-  delay?: number;
-}> = ({ children, delay = 0 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`scroll-reveal${isVisible ? " is-visible" : ""}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-};
 
 export const MainInvitePage: React.FC<MainInvitePageProps> = ({
   variant = "full",
   defaultSide,
   featuredContact,
+  includeMehendi = false,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -119,22 +86,26 @@ export const MainInvitePage: React.FC<MainInvitePageProps> = ({
       <HeroSection variant={variant} side={activeSide} />
 
       {/* Story Journey */}
-      <ScrollReveal delay={80}>
+      <ScrollReveal delay={80} variant="left">
         <StorySection />
       </ScrollReveal>
 
       {/* Detailed Wedding Events List */}
-      <ScrollReveal delay={120}>
-        <EventsSection side={activeSide} />
+      <ScrollReveal delay={120} variant="right">
+        <EventsSection side={activeSide} includeMehendi={includeMehendi} />
       </ScrollReveal>
 
       {/* Embedded RSVP Section */}
-      <ScrollReveal delay={160}>
-        <RSVPSection side={activeSide} featuredContact={featuredContact} />
+      <ScrollReveal delay={160} variant="zoom">
+        <RSVPSection
+          side={activeSide}
+          featuredContact={featuredContact}
+          includeMehendi={includeMehendi}
+        />
       </ScrollReveal>
 
       {/* Footer */}
-      <ScrollReveal delay={200}>
+      <ScrollReveal delay={200} variant="rise">
         <WeddingFooter variant={variant} side={activeSide} />
       </ScrollReveal>
 

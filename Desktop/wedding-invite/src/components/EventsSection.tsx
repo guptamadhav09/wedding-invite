@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { ChevronDown, MapPin, Clock, ExternalLink } from "lucide-react";
 import { weddingEvents } from "../data/weddingData";
 import type { Side } from "./SideSelector";
+import { ScrollReveal } from "./ScrollReveal";
 
 interface EventsSectionProps {
   side?: Side;
+  includeMehendi?: boolean;
 }
 
-export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) => {
+export const EventsSection: React.FC<EventsSectionProps> = ({
+  side = "mahek",
+  includeMehendi = false,
+}) => {
   const [expandedKey, setExpandedKey] = useState<string | null>("wedding");
+  const visibleEvents = weddingEvents.filter(
+    (event) => includeMehendi || event.key !== "mehendi"
+  );
 
   const toggleExpand = (key: string) => {
     setExpandedKey(expandedKey === key ? null : key);
@@ -32,7 +40,7 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
       </div>
 
       <div className="max-w-4xl mx-auto space-y-6">
-        {weddingEvents.map((evt) => {
+        {visibleEvents.map((evt, index) => {
           const isExpanded = expandedKey === evt.key;
           const venueAddress = evt.sideVenues
             ? evt.sideVenues[side === "prateek" ? "groom" : "bride"]
@@ -46,8 +54,8 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
             : evt.image;
 
           return (
+            <ScrollReveal key={evt.key} delay={index * 80} variant={index % 2 === 0 ? "left" : "right"}>
             <div
-              key={evt.key}
               className={`bg-white border rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 ${
                 isExpanded ? "border-gold/60 shadow-md ring-1 ring-gold/30" : "border-border/80"
               }`}
@@ -157,6 +165,7 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ side = "mahek" }) 
                 </div>
               )}
             </div>
+            </ScrollReveal>
           );
         })}
       </div>

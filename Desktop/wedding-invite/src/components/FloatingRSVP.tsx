@@ -16,7 +16,7 @@ export const FloatingRSVP: React.FC<FloatingRSVPProps> = ({ side = "mahek" }) =>
       <button
         onClick={() => setOpen(true)}
         aria-label="Open RSVP form"
-        className="fixed bottom-4 right-4 sm:bottom-auto sm:top-1/2 sm:right-0 sm:-translate-y-1/2 z-50 gold-gradient text-secondary font-baloo tracking-[0.2em] uppercase text-sm sm:text-base font-semibold h-11 sm:h-12 px-5 sm:px-6 rounded-none border-2 border-[hsl(43,72%,38%)] shadow-lg hover:opacity-90 hover:shadow-[0_4px_20px_hsl(43,72%,53%,0.4)] transition-all duration-300 cursor-pointer sm:[writing-mode:vertical-rl] sm:rounded-l-md"
+        className="rsvp-floating-button fixed z-50 gold-gradient text-secondary font-baloo tracking-[0.2em] uppercase text-sm sm:text-base font-semibold h-11 sm:h-12 px-5 sm:px-6 rounded-none border-2 border-[hsl(43,72%,38%)] shadow-lg hover:opacity-90 hover:shadow-[0_4px_20px_hsl(43,72%,53%,0.4)] transition-all duration-300 cursor-pointer sm:bottom-auto sm:top-1/2 sm:right-0 sm:-translate-y-1/2 sm:[writing-mode:vertical-rl] sm:rounded-l-md"
       >
         ✦ RSVP
       </button>
@@ -31,7 +31,7 @@ export const FloatingRSVP: React.FC<FloatingRSVPProps> = ({ side = "mahek" }) =>
           />
 
           {/* Drawer Content */}
-          <div className="relative w-full max-w-2xl bg-background rounded-t-3xl border-t border-gold/40 shadow-2xl max-h-[85vh] overflow-y-auto z-10 animate-slide-up">
+          <div className="rsvp-sheet relative w-full max-w-2xl bg-background rounded-t-3xl border-t border-gold/40 shadow-2xl overflow-y-auto z-10 animate-slide-up">
             {/* Sticky Header with Close */}
             <div className="sticky top-0 bg-background/95 backdrop-blur-sm border-b border-border/40 px-6 py-4 flex items-center justify-between z-20">
               <span className="font-serif text-xl font-semibold gold-text">

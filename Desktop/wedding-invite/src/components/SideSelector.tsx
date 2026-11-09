@@ -10,7 +10,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
   const [hovered, setHovered] = useState<Side | null>(null);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-start bg-[#fbf8ed] relative overflow-hidden px-4 pt-12 pb-6 text-[#513e30] sm:justify-center sm:py-10">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-start overflow-x-clip bg-[#fbf8ed] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#513e30] sm:justify-center sm:py-10">
       <div className="absolute inset-0 pointer-events-none opacity-45 bg-[radial-gradient(circle_at_50%_42%,rgba(224,191,113,0.13),transparent_48%)]" />
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
@@ -18,33 +18,33 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
           ॥ श्री गणेशाय नमः ॥
         </p>
 
-        <p className="mt-5 sm:mt-10 max-w-2xl font-serif italic text-2xl sm:text-4xl leading-[1.25] tracking-wide text-[#4f392d]">
+        <p className="mt-3 max-w-2xl font-serif italic text-2xl leading-[1.2] tracking-wide text-[#4f392d] sm:mt-10 sm:text-4xl sm:leading-[1.25]">
           The Dhingra &amp; Gupta families joyfully invite you to celebrate
         </p>
 
-        <p className="mt-5 sm:mt-10 text-xl sm:text-4xl tracking-[0.22em] uppercase text-[#60483a] font-sans font-bold">
+        <p className="mt-3 text-xl font-bold uppercase tracking-[0.22em] text-[#60483a] sm:mt-10 sm:text-4xl">
           The Wedding Of
         </p>
 
         <img
           src="/assets/mahekandprateek.png"
           alt="Mahek and Prateek"
-          className="mt-3 h-[15rem] sm:mt-6 sm:h-[27rem] w-auto max-w-[92vw] object-contain drop-shadow-[0_16px_18px_rgba(83,58,40,0.12)]"
+          className="mt-2 h-[clamp(10rem,38svh,15rem)] w-auto max-w-[92vw] object-contain drop-shadow-[0_16px_18px_rgba(83,58,40,0.12)] sm:mt-6 sm:h-[27rem]"
         />
 
-        <div className="mt-3 flex items-center gap-2 sm:gap-8 font-serif text-sm sm:text-2xl tracking-[0.08em] sm:tracking-[0.12em] font-semibold text-[#4d392c]">
+        <div className="mt-2 flex items-center gap-2 font-serif text-sm font-semibold tracking-[0.04em] text-[#4d392c] sm:mt-3 sm:gap-8 sm:text-2xl sm:tracking-[0.12em]">
           <span className="h-px w-8 sm:w-28 bg-[#b98b45]" />
-          <span className="whitespace-nowrap">12 December 2026&nbsp; · &nbsp;Evara, Vasundhara</span>
+          <span className="min-w-0 text-center leading-snug">12 December 2026&nbsp; · &nbsp;Evara, Vasundhara</span>
           <span className="h-px w-8 sm:w-28 bg-[#b98b45]" />
         </div>
 
-        <div className="mt-1 text-xl text-[#a4772e]">✦</div>
+        <div className="mt-0.5 text-xl text-[#a4772e]">✦</div>
 
-        <p className="mt-1 text-sm sm:mt-2 sm:text-base tracking-[0.16em] uppercase text-[#614b35] font-sans font-semibold">
+        <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#614b35] sm:mt-2 sm:text-base sm:tracking-[0.16em]">
           Whose side are you celebrating with?
         </p>
 
-        <div className="mt-4 sm:mt-8 flex w-full flex-row gap-2 sm:gap-5">
+        <div className="mt-3 flex w-full flex-row gap-2 sm:mt-8 sm:gap-5">
           <SideChoice
             side="prateek"
             hovered={hovered}
@@ -109,7 +109,7 @@ const SideChoice: React.FC<SideChoiceProps> = ({
       alt=""
       className="h-20 w-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-24 sm:w-20"
     />
-    <span className="ml-4 min-w-0 sm:ml-6">
+    <span className="ml-0 min-w-0 sm:ml-6">
       <span className="block truncate text-[10px] font-dm-mono font-bold uppercase tracking-[0.08em] text-[#80644f] sm:text-xs sm:tracking-[0.14em]">
         {team}
       </span>

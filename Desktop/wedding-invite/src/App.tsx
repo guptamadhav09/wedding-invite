@@ -49,6 +49,7 @@ export function App() {
         {/* Specific webpages for Bride's side */}
         <Route path="/bride" element={<MainInvitePage variant="full" defaultSide="mahek" />} />
         <Route path="/mahek" element={<MainInvitePage variant="full" defaultSide="mahek" />} />
+        <Route path="/3" element={<MainInvitePage variant="full" includeMehendi />} />
         <Route path="/:inviteeSlug" element={<InviteeInvitePage />} />
         
         <Route path="/rsvp" element={<MainInvitePage variant="rsvp" />} />

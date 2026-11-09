@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
 
 import type { Side } from "./SideSelector";
 
@@ -32,18 +31,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const scrollToContent = () => {
-    const el = document.getElementById("story");
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 70;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-  };
-
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-between items-center overflow-hidden bg-[#f7eee3] px-4 pb-10 pt-14 sm:pt-16 sm:pb-14"
+      className="wedding-hero relative flex min-h-[100svh] flex-col items-center justify-between overflow-x-clip bg-[#f7eee3] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:pt-16 sm:pb-14"
     >
       {/* The photo stays soft above the invitation; the lower wash removes it behind text. */}
       <div
@@ -58,13 +49,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         }}
       />
 
-      {/* Top Spacer */}
-      <div className="h-2 sm:h-6" />
-
       {/* ── Main Hero Content (Always 100% visible, no fading or disappearing) ── */}
-      <div className="relative z-10 flex w-full max-w-3xl translate-y-28 flex-col items-center text-center mx-auto my-auto py-4 sm:translate-y-24 sm:py-6">
+      <div className="relative z-10 mx-auto my-auto flex w-full max-w-3xl flex-col items-center py-4 text-center sm:py-6">
         {/* ── Sacred Auspicious Invocation: Lord Ganesha (Bhagwan Ji) ── */}
-        <div className="flex flex-col items-center justify-center mb-5 sm:mb-7">
+        <div className="hero-invocation flex flex-col items-center justify-center mb-5 sm:mb-7">
           {/* Elegant Golden Ganesha Line-Art Motif */}
           <svg
             viewBox="0 0 64 64"
@@ -110,12 +98,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </div>
 
         {/* THE WEDDING OF */}
-        <p className="font-sans tracking-[0.34em] text-xs sm:text-sm uppercase text-[#6f4c3c] font-semibold mb-3 sm:mb-5">
+        <p className="hero-kicker font-sans tracking-[0.34em] text-xs sm:text-sm uppercase text-[#6f4c3c] font-semibold mb-3 sm:mb-5">
           The Wedding Of
         </p>
 
         {/* Couple Names — Groom first if groom's side selected, Bride first if bride's side selected */}
-        <h1 className="font-serif text-[#4a2528] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
+        <h1 className="hero-couple-names font-serif text-[#4a2528] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
           <span>{side === "prateek" ? "Prateek" : "Mahek"}</span>
           <span className="font-great-vibes text-gold font-normal px-2.5 sm:px-4 text-[1.1em] align-baseline">
             &amp;
@@ -124,7 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </h1>
 
         {/* Thin Gold Divider Line */}
-        <div className="w-48 sm:w-64 h-[1.5px] bg-[#ae8038]/75 mx-auto my-5 sm:my-6" />
+        <div className="hero-divider w-48 sm:w-64 h-[1.5px] bg-[#ae8038]/75 mx-auto my-5 sm:my-6" />
 
         {/* Date */}
         <p className="font-serif text-xl sm:text-2xl text-[#53352d] tracking-wide font-medium mb-1.5">
@@ -137,9 +125,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </p>
 
         {/* ── 4 Countdown Timer Cards ── */}
-        <div className="flex items-center justify-center gap-2 sm:gap-3.5 mt-8 sm:mt-10">
+        <div className="hero-countdown flex items-center justify-center gap-2 sm:gap-3.5 mt-8 sm:mt-10">
           {/* DAYS */}
-          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+          <div className="hero-countdown-card w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
             <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.days).padStart(2, "0")}
             </span>
@@ -149,7 +137,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
           </div>
 
           {/* HOURS */}
-          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+          <div className="hero-countdown-card w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
             <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.hours).padStart(2, "0")}
             </span>
@@ -159,7 +147,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
           </div>
 
           {/* MINUTES */}
-          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+          <div className="hero-countdown-card w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
             <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.minutes).padStart(2, "0")}
             </span>
@@ -169,7 +157,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
           </div>
 
           {/* SECONDS */}
-          <div className="w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
+          <div className="hero-countdown-card w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
             <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
               {String(timeLeft.seconds).padStart(2, "0")}
             </span>
@@ -180,17 +168,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </div>
       </div>
 
-      {/* Scroll to explore indicator */}
-      <button
-        onClick={scrollToContent}
-        className="relative z-10 flex flex-col items-center gap-1.5 text-[#887063] hover:text-secondary transition-colors cursor-pointer group mt-6"
-        aria-label="Scroll to story"
-      >
-        <span className="text-[10px] tracking-[0.25em] uppercase font-dm-mono font-medium">
-          Scroll to explore
-        </span>
-        <ChevronDown className="w-4 h-4 text-gold-dark animate-bounce transition-transform group-hover:scale-110" />
-      </button>
     </section>
   );
 };

@@ -48,8 +48,8 @@ export const inviteeContacts: Record<string, InviteeContact> = {
   },
   vipulanddevika: {
     name: "Vipul & Devika",
-    phone: "+91 98715 33510",
-    raw: "919871533510",
+    phone: "+91 98715 33535",
+    raw: "919871533535",
     side: "groom",
   },
 };
@@ -59,13 +59,13 @@ export const weddingEvents: WeddingEvent[] = [
     key: "mehendi",
     name: "Mehendi & Ring Ceremony",
     date: "Friday, 11th December 2026",
-    time: "4:00 PM onwards",
+    time: "8:00 PM onwards",
     venue: "Peach Sector 98, Noida",
     venueStatus: "tba",
     mapLink: "https://maps.app.goo.gl/BqDtLnz4TnzeVZYR8",
     dress: "Vibrant Indian Attire / Bright Pastels",
     description:
-      "An enchanting afternoon of intricate henna artistry, the joyful exchange of rings, live music, delicious bites, and cheerful celebrations.",
+      "An enchanting evening of intricate henna artistry, the joyful exchange of rings, live music, delicious bites, and cheerful celebrations.",
     expandedDetails: [
       "Professional henna artists for all guests",
       "Ring ceremony — a beautiful exchange of promises",
@@ -78,7 +78,7 @@ export const weddingEvents: WeddingEvent[] = [
     key: "haldi",
     name: "Haldi Ceremony",
     date: "Saturday, 12th December 2026",
-    time: "9:00 AM onwards",
+    time: "10:00 AM onwards",
     venue: "Home",
     venueStatus: "confirmed",
     sideVenues: {
@@ -276,7 +276,7 @@ export const timelineData: TimelineItem[] = [
     sub: "Henna & Promises",
     side: "below",
     festive: true,
-    annotation: { lines: ["Venue to be announced", "4:00 PM onwards"] },
+    annotation: { lines: ["Venue to be announced", "8:00 PM onwards"] },
   },
   {
     day: "Sat",
@@ -286,7 +286,7 @@ export const timelineData: TimelineItem[] = [
     sub: "Sacred Pheras",
     side: "below",
     festive: true,
-    annotation: { lines: ["Evara, Vasundhara", "9 AM · 7 PM"] },
+    annotation: { lines: ["Evara, Vasundhara", "10 AM · 7 PM"] },
   },
 ];
 

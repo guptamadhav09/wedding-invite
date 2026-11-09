@@ -1,5 +1,109 @@
-import React from "react";
-import { Coffee, Heart, Sparkles } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, Coffee, Heart, Sparkles } from "lucide-react";
+import { ScrollReveal } from "./ScrollReveal";
+
+const storyPhotos = [
+  {
+    src: "/assets/bride&groom3.png",
+    alt: "Illustration of Mahek and Prateek",
+    className: "object-cover object-top",
+  },
+  {
+    src: "/assets/bride&groom4.png",
+    alt: "Illustrated portrait of Mahek and Prateek",
+    className: "object-cover object-top",
+  },
+  {
+    src: "/assets/bride&groom2.jpeg",
+    alt: "Illustrated portrait of Mahek and Prateek together",
+    className: "object-cover object-top",
+  },
+  {
+    src: "/assets/our-story.jpeg",
+    alt: "Mahek and Prateek sharing a moment",
+    className: "object-cover object-[center_65%]",
+  },
+];
+
+const StoryPhotoSlideshow: React.FC = () => {
+  const [activePhoto, setActivePhoto] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setActivePhoto((current) => (current + 1) % storyPhotos.length);
+    }, 5000);
+
+    return () => window.clearInterval(interval);
+  }, [isPaused]);
+
+  const showPhoto = (index: number) => {
+    setActivePhoto((index + storyPhotos.length) % storyPhotos.length);
+  };
+
+  return (
+    <div
+      className="story-slideshow"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Photos of Mahek and Prateek"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsPaused(false);
+        }
+      }}
+    >
+      <div className="story-slideshow__frame">
+        <img
+          key={storyPhotos[activePhoto].src}
+          src={storyPhotos[activePhoto].src}
+          alt={storyPhotos[activePhoto].alt}
+          className={`story-slideshow__image ${storyPhotos[activePhoto].className}`}
+          loading="lazy"
+          decoding="async"
+        />
+        <button
+          type="button"
+          aria-label="Show previous photo"
+          onClick={() => showPhoto(activePhoto - 1)}
+          className="story-slideshow__arrow story-slideshow__arrow--previous"
+        >
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          aria-label="Show next photo"
+          onClick={() => showPhoto(activePhoto + 1)}
+          className="story-slideshow__arrow story-slideshow__arrow--next"
+        >
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </div>
+      <div className="story-slideshow__dots" aria-label="Choose a photo">
+        {storyPhotos.map((photo, index) => (
+          <button
+            key={photo.src}
+            type="button"
+            aria-label={`Show photo ${index + 1} of ${storyPhotos.length}`}
+            aria-current={activePhoto === index ? "true" : undefined}
+            onClick={() => showPhoto(index)}
+            className={`story-slideshow__dot${activePhoto === index ? " is-active" : ""}`}
+          />
+        ))}
+      </div>
+      <p className="sr-only" aria-live="polite">
+        Photo {activePhoto + 1} of {storyPhotos.length}: {storyPhotos[activePhoto].alt}
+      </p>
+    </div>
+  );
+};
 
 export const StorySection: React.FC = () => {
   return (
@@ -42,7 +146,7 @@ export const StorySection: React.FC = () => {
         <div className="space-y-16 sm:space-y-20">
 
           {/* ══ TIMELINE INSTANCE 01 ══ */}
-          <div className="relative pl-6 sm:pl-10">
+          <ScrollReveal delay={0} variant="left" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
             <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Coffee className="w-3.5 h-3.5 text-gold-dark" />
@@ -94,10 +198,10 @@ export const StorySection: React.FC = () => {
             <p className="font-serif italic text-sm sm:text-base text-secondary/90 leading-relaxed pt-2 border-t border-gold/25">
               She laughed. He stayed. And the cookie became the beginning of something far more meaningful.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* ══ TIMELINE INSTANCE 02 ══ */}
-          <div className="relative pl-6 sm:pl-10">
+          <ScrollReveal delay={90} variant="right" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
             <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
@@ -135,10 +239,10 @@ export const StorySection: React.FC = () => {
             <p className="font-serif italic text-sm sm:text-base text-secondary/90 leading-relaxed pt-2 border-t border-gold/25">
               Finding someone whose warmth, values, and family quirks mirrored your own made everything feel like coming home.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* ══ TIMELINE INSTANCE 03 ══ */}
-          <div className="relative pl-6 sm:pl-10">
+          <ScrollReveal delay={90} variant="left" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
             <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Coffee className="w-3.5 h-3.5 text-gold-dark" />
@@ -198,10 +302,10 @@ export const StorySection: React.FC = () => {
             <p className="font-serif italic text-sm sm:text-base text-secondary/90 leading-relaxed pt-2 border-t border-gold/25">
               One meeting became many, and friendship slowly turned into something more.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* ══ TIMELINE INSTANCE 04 (FINALE) ══ */}
-          <div className="relative pl-6 sm:pl-10">
+          <ScrollReveal delay={120} variant="zoom" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
             <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Heart className="w-3.5 h-3.5 text-gold fill-gold/30" />
@@ -221,15 +325,8 @@ export const StorySection: React.FC = () => {
               “And just like that, their forever began.”
             </p>
 
-            {/* Story photo */}
-            <div className="mt-6 max-w-md rounded-2xl overflow-hidden shadow-md border-4 border-white bg-white">
-              <img
-                src="/assets/our-story.jpeg"
-                alt="Mahek and Prateek"
-                className="w-full h-[19rem] sm:h-[15.5rem] object-cover object-[center_65%]"
-              />
-            </div>
-          </div>
+            <StoryPhotoSlideshow />
+          </ScrollReveal>
 
         </div>
       </div>
