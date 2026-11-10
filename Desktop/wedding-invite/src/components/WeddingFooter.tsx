@@ -7,6 +7,9 @@ interface WeddingFooterProps {
 }
 
 export const WeddingFooter: React.FC<WeddingFooterProps> = ({ side = "mahek" }) => {
+  const familyOrder =
+    side === "prateek" ? "Dhingra & Gupta Family" : "Gupta's & Dhingra Family";
+
   return (
     <footer className="py-20 px-4 bg-background border-t border-primary/15 text-center relative overflow-hidden">
       {/* Decorative Gold Geometric SVG Divider */}
@@ -66,7 +69,7 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({ side = "mahek" }) 
 
       <div className="space-y-3">
         <h3 className="font-great-vibes text-4xl sm:text-5xl gold-text">
-          Gupta &amp; Dhingra Family
+          {familyOrder}
         </h3>
         <p className="font-serif text-secondary text-sm sm:text-base pt-2">
           Your presence will make our celebrations more beautiful.

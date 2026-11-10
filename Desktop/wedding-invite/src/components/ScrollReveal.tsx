@@ -29,7 +29,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
           observer.disconnect();
         }
       },
-      { threshold: 0.08, rootMargin: "0px 0px -32px" }
+      { threshold: 0.12, rootMargin: "0px 0px -64px" }
     );
 
     observer.observe(element);

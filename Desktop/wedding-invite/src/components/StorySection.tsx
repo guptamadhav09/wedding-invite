@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, Coffee, Heart, Sparkles } from "lucide-react";
+import { Coffee, Heart, Sparkles } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 
 const storyPhotos = [
   {
     src: "/assets/bride&groom3.png",
     alt: "Illustration of Mahek and Prateek",
-    className: "object-cover object-top",
+    className: "object-cover object-center",
   },
   {
     src: "/assets/bride&groom4.png",
     alt: "Illustrated portrait of Mahek and Prateek",
-    className: "object-cover object-top",
+    className: "object-cover object-center",
   },
   {
     src: "/assets/bride&groom2.jpeg",
@@ -23,27 +23,27 @@ const storyPhotos = [
     alt: "Mahek and Prateek sharing a moment",
     className: "object-cover object-[center_65%]",
   },
+  {
+    src: "/assets/bride&groom5.jpeg",
+    alt: "Mahek and Prateek looking up at the night sky",
+    className: "object-cover object-center",
+  },
 ];
 
 const StoryPhotoSlideshow: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (isPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
     const interval = window.setInterval(() => {
       setActivePhoto((current) => (current + 1) % storyPhotos.length);
-    }, 5000);
+    }, 3000);
 
     return () => window.clearInterval(interval);
-  }, [isPaused]);
-
-  const showPhoto = (index: number) => {
-    setActivePhoto((index + storyPhotos.length) % storyPhotos.length);
-  };
+  }, []);
 
   return (
     <div
@@ -51,14 +51,6 @@ const StoryPhotoSlideshow: React.FC = () => {
       role="region"
       aria-roledescription="carousel"
       aria-label="Photos of Mahek and Prateek"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
-          setIsPaused(false);
-        }
-      }}
     >
       <div className="story-slideshow__frame">
         <img
@@ -69,36 +61,8 @@ const StoryPhotoSlideshow: React.FC = () => {
           loading="lazy"
           decoding="async"
         />
-        <button
-          type="button"
-          aria-label="Show previous photo"
-          onClick={() => showPhoto(activePhoto - 1)}
-          className="story-slideshow__arrow story-slideshow__arrow--previous"
-        >
-          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          aria-label="Show next photo"
-          onClick={() => showPhoto(activePhoto + 1)}
-          className="story-slideshow__arrow story-slideshow__arrow--next"
-        >
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </button>
       </div>
-      <div className="story-slideshow__dots" aria-label="Choose a photo">
-        {storyPhotos.map((photo, index) => (
-          <button
-            key={photo.src}
-            type="button"
-            aria-label={`Show photo ${index + 1} of ${storyPhotos.length}`}
-            aria-current={activePhoto === index ? "true" : undefined}
-            onClick={() => showPhoto(index)}
-            className={`story-slideshow__dot${activePhoto === index ? " is-active" : ""}`}
-          />
-        ))}
-      </div>
-      <p className="sr-only" aria-live="polite">
+      <p className="sr-only" aria-live="off">
         Photo {activePhoto + 1} of {storyPhotos.length}: {storyPhotos[activePhoto].alt}
       </p>
     </div>

@@ -66,33 +66,11 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
           <span>Invitation</span>
         </div>
 
-        {/* ── Circle Emblem in a DIFFERENT BEIGE ── */}
-        <div
-          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center relative shadow-lg transition-transform duration-300 hover:scale-105"
-          style={{
-            background: "#741f2b", // Deep burgundy wax-stamp seal
-            border: "3px solid #dfd3c3", // Light beige outer border
-            boxShadow: "0 8px 25px rgba(90, 75, 55, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.3)",
-          }}
-        >
-          {/* Inner stitched ring */}
-          <div
-            className="w-20 h-20 sm:w-23 sm:h-23 rounded-full flex items-center justify-center"
-            style={{
-              border: "1px dashed rgba(255, 255, 255, 0.4)",
-            }}
-          >
-            {/* M&P Monogram */}
-            <span
-              className="font-great-vibes text-[#fffefb] select-none text-3xl sm:text-4xl"
-              style={{
-                textShadow: "0 1px 3px rgba(60, 20, 20, 0.35)",
-              }}
-            >
-              P&amp;M
-            </span>
-          </div>
-        </div>
+        <img
+          src="/assets/PandM.png"
+          alt="P and M wax seal"
+          className="h-24 w-24 object-contain drop-shadow-[0_8px_12px_rgba(90,75,55,0.22)] transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28"
+        />
 
         {/* Bottom invitation text */}
         <p className="font-dm-mono text-[9px] tracking-[3px] uppercase text-[#8c765e] font-semibold mt-6 animate-pulse">

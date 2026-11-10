@@ -48,8 +48,8 @@ export const inviteeContacts: Record<string, InviteeContact> = {
   },
   vipulanddevika: {
     name: "Vipul & Devika",
-    phone: "+91 98715 33535",
-    raw: "919871533535",
+    phone: "+91 98715 33510",
+    raw: "919871533510",
     side: "groom",
   },
 };

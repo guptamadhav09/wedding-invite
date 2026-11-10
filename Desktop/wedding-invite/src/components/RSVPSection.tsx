@@ -30,7 +30,7 @@ export const familyContacts = {
   groom: [
     { name: "Kavita Dhingra", phone: "+91 99109 83781", raw: "919910983781" },
     { name: "Deepak Dhingra", phone: "+91 99992 54398", raw: "919999254398" },
-    { name: "Vipul & Devika", phone: "+91 98715 33535", raw: "919871533535" },
+    { name: "Vipul & Devika", phone: "+91 98715 33510", raw: "919871533510" },
   ],
   bride: [
     { name: "Veenu Gupta", phone: "+91 99118 67070", raw: "919911867070" },
