@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Coffee, Heart, Sparkles } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 
@@ -28,6 +28,19 @@ const storyPhotos = [
 const StoryPhotoSlideshow: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState(0);
   const [direction, setDirection] = useState<"next" | "previous">("next");
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setDirection("next");
+      setActivePhoto((current) => (current + 1) % storyPhotos.length);
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   const showPhoto = (offset: number) => {
     setDirection(offset > 0 ? "next" : "previous");
@@ -67,7 +80,22 @@ const StoryPhotoSlideshow: React.FC = () => {
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
-      <p className="sr-only" aria-live="polite">
+      <div className="story-slideshow__dots" aria-label="Choose a photo">
+        {storyPhotos.map((photo, index) => (
+          <button
+            key={photo.src}
+            type="button"
+            aria-label={`Show photo ${index + 1} of ${storyPhotos.length}`}
+            aria-current={activePhoto === index ? "true" : undefined}
+            onClick={() => {
+              setDirection(index >= activePhoto ? "next" : "previous");
+              setActivePhoto(index);
+            }}
+            className={`story-slideshow__dot${activePhoto === index ? " is-active" : ""}`}
+          />
+        ))}
+      </div>
+      <p className="sr-only" aria-live="off">
         Photo {activePhoto + 1} of {storyPhotos.length}: {storyPhotos[activePhoto].alt}
       </p>
     </div>
