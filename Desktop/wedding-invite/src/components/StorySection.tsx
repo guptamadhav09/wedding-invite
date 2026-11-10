@@ -9,12 +9,12 @@ const storyPhotos = [
     className: "object-cover object-center",
   },
   {
-    src: "/assets/bride&groom2.jpeg",
+    src: "/assets/bride&groom2.png",
     alt: "Illustrated portrait of Mahek and Prateek together",
     className: "object-cover object-top",
   },
   {
-    src: "/assets/our-story.jpeg",
+    src: "/assets/our-story.png",
     alt: "Mahek and Prateek sharing a moment",
     className: "object-cover object-[center_65%]",
   },

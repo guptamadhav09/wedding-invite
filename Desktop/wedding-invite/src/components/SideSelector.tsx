@@ -19,7 +19,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
         </p>
 
         <p className="mt-3 max-w-2xl font-serif italic text-2xl leading-[1.2] tracking-wide text-[#4f392d] sm:mt-10 sm:text-4xl sm:leading-[1.25]">
-          The Dhingra &amp; Gupta families joyfully invite you to celebrate
+          The Gupta &amp; Dhingra families joyfully invite you to celebrate
         </p>
 
         <p className="mt-3 text-xl font-bold uppercase tracking-[0.22em] text-[#60483a] sm:mt-10 sm:text-4xl">

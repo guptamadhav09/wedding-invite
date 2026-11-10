@@ -73,7 +73,7 @@ export const TravelSection: React.FC = () => {
                 className="w-full h-44 object-cover rounded-2xl shadow-xs"
               />
               <img
-                src="/assets/our-story.jpeg"
+                src="/assets/our-story.png"
                 alt="Evening Lights"
                 className="w-full h-44 object-cover rounded-2xl shadow-xs col-span-2"
               />
