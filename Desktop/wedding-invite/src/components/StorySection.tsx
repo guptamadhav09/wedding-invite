@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Coffee, Heart, Sparkles } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowLeft, ArrowRight, Coffee, Heart, Sparkles } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 
 const storyPhotos = [
   {
-    src: "/assets/bride&groom3.png",
+    src: "/assets/bride&groom3.jpeg",
     alt: "Illustration of Mahek and Prateek",
-    className: "object-cover object-center",
-  },
-  {
-    src: "/assets/bride&groom4.png",
-    alt: "Illustrated portrait of Mahek and Prateek",
     className: "object-cover object-center",
   },
   {
@@ -32,18 +27,12 @@ const storyPhotos = [
 
 const StoryPhotoSlideshow: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState(0);
+  const [direction, setDirection] = useState<"next" | "previous">("next");
 
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setActivePhoto((current) => (current + 1) % storyPhotos.length);
-    }, 3000);
-
-    return () => window.clearInterval(interval);
-  }, []);
+  const showPhoto = (offset: number) => {
+    setDirection(offset > 0 ? "next" : "previous");
+    setActivePhoto((current) => (current + offset + storyPhotos.length) % storyPhotos.length);
+  };
 
   return (
     <div
@@ -57,12 +46,28 @@ const StoryPhotoSlideshow: React.FC = () => {
           key={storyPhotos[activePhoto].src}
           src={storyPhotos[activePhoto].src}
           alt={storyPhotos[activePhoto].alt}
-          className={`story-slideshow__image ${storyPhotos[activePhoto].className}`}
+          className={`story-slideshow__image story-slideshow__image--${direction} ${storyPhotos[activePhoto].className}`}
           loading="lazy"
           decoding="async"
         />
+        <button
+          type="button"
+          aria-label="Show previous photo"
+          onClick={() => showPhoto(-1)}
+          className="story-slideshow__arrow story-slideshow__arrow--previous"
+        >
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          aria-label="Show next photo"
+          onClick={() => showPhoto(1)}
+          className="story-slideshow__arrow story-slideshow__arrow--next"
+        >
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
       </div>
-      <p className="sr-only" aria-live="off">
+      <p className="sr-only" aria-live="polite">
         Photo {activePhoto + 1} of {storyPhotos.length}: {storyPhotos[activePhoto].alt}
       </p>
     </div>
@@ -112,7 +117,7 @@ export const StorySection: React.FC = () => {
           {/* ══ TIMELINE INSTANCE 01 ══ */}
           <ScrollReveal delay={0} variant="left" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
-            <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
+            <div className="story-timeline-node absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Coffee className="w-3.5 h-3.5 text-gold-dark" />
             </div>
 
@@ -167,7 +172,7 @@ export const StorySection: React.FC = () => {
           {/* ══ TIMELINE INSTANCE 02 ══ */}
           <ScrollReveal delay={90} variant="right" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
-            <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
+            <div className="story-timeline-node absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
             </div>
 
@@ -208,7 +213,7 @@ export const StorySection: React.FC = () => {
           {/* ══ TIMELINE INSTANCE 03 ══ */}
           <ScrollReveal delay={90} variant="left" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
-            <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
+            <div className="story-timeline-node absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Coffee className="w-3.5 h-3.5 text-gold-dark" />
             </div>
 
@@ -271,7 +276,7 @@ export const StorySection: React.FC = () => {
           {/* ══ TIMELINE INSTANCE 04 (FINALE) ══ */}
           <ScrollReveal delay={120} variant="zoom" className="relative pl-6 sm:pl-10">
             {/* Timeline Node Circle */}
-            <div className="absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
+            <div className="story-timeline-node absolute -left-[23px] sm:-left-[35px] top-1 w-8 h-8 rounded-full bg-[#faf8f5] border-2 border-gold flex items-center justify-center shadow-xs">
               <Heart className="w-3.5 h-3.5 text-gold fill-gold/30" />
             </div>
 

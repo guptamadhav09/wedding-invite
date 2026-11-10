@@ -24,12 +24,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.12, rootMargin: "0px 0px -64px" }
+      { threshold: 0, rootMargin: "0px 0px -32px" }
     );
 
     observer.observe(element);
