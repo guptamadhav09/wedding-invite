@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 interface EnvelopeIntroProps {
   onComplete: () => void;
@@ -19,6 +20,12 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
   return (
     <div
       onClick={handleOpen}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleOpen();
+        }
+      }}
       role="button"
       tabIndex={0}
       aria-label="Open wedding invitation doors"
@@ -54,32 +61,47 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
 
       {/* ── Center Content / Monogram Seal ── */}
       <div
-        className="relative z-30 flex flex-col items-center justify-center transition-all duration-400 pointer-events-none"
+        className="envelope-content relative z-30 flex flex-col items-center justify-center transition-all duration-400 pointer-events-none"
         style={{
           opacity: opening ? 0 : 1,
           transform: opening ? "scale(0.85)" : "scale(1)",
         }}
       >
         {/* Top subtle hint */}
-        <div className="mb-6 flex translate-x-3 items-center justify-center gap-3 font-dm-mono text-[9px] font-semibold uppercase tracking-[3px] text-[#8c765e] sm:text-[10px]">
-          <span>Wedding</span>
-          <span>Invitation</span>
+        <div className="envelope-label mb-6 inline-flex items-center justify-center gap-2.5 text-[#604832]">
+          <span className="h-px w-5 bg-[#b89b72]" aria-hidden="true" />
+          <span className="font-sans text-xs font-semibold uppercase tracking-[0.2em] sm:text-sm">
+            Wedding Invitation
+          </span>
+          <span className="h-px w-5 bg-[#b89b72]" aria-hidden="true" />
         </div>
 
-        <img
-          src="/assets/PandM.webp"
-          alt="P and M wax seal"
-          width="1295"
-          height="1215"
-          fetchPriority="high"
-          decoding="async"
-          className="h-24 w-24 object-contain drop-shadow-[0_8px_12px_rgba(90,75,55,0.22)] transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28"
-        />
+        <div className="envelope-seal-wrap">
+          <span className="envelope-seal-halo" aria-hidden="true" />
+          <img
+            src="/assets/PandM.webp"
+            alt="P and M wax seal"
+            width="1295"
+            height="1215"
+            fetchPriority="high"
+            decoding="async"
+            className="envelope-seal h-36 w-36 object-contain drop-shadow-[0_10px_16px_rgba(90,75,55,0.24)] sm:h-40 sm:w-40"
+          />
+        </div>
 
         {/* Bottom invitation text */}
-        <p className="font-dm-mono text-[9px] tracking-[3px] uppercase text-[#8c765e] font-semibold mt-6 animate-pulse">
-          ✦ Tap to Enter ✦
-        </p>
+        <span className="envelope-entry-cue mt-5 inline-flex flex-col items-center gap-1.5 text-[#60483a]">
+          <span className="inline-flex items-center gap-2">
+            <span className="font-sans text-[13px] font-semibold uppercase tracking-[0.16em] sm:text-[15px]">
+              Tap to enter
+            </span>
+            <ArrowRight
+              className="envelope-entry-cue__arrow h-3.5 w-3.5"
+              aria-hidden="true"
+            />
+          </span>
+          <span className="envelope-entry-cue__underline" aria-hidden="true" />
+        </span>
       </div>
     </div>
   );
