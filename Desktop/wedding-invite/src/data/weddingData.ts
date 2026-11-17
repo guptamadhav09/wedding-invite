@@ -72,7 +72,7 @@ export const weddingEvents: WeddingEvent[] = [
       "Live music and celebratory beats",
       "Followed by cocktails and dinner"
     ],
-    image: "/assets/mehendi-venue.jpeg",
+    image: "/assets/mehendi-venue.webp",
   },
   {
     key: "haldi",
@@ -90,8 +90,8 @@ export const weddingEvents: WeddingEvent[] = [
       bride: "https://share.google/OkgQ3EFEp2YGqAZd9",
     },
     sideImages: {
-      groom: "/assets/groom-house.jpeg",
-      bride: "/assets/bride-house.jpeg",
+      groom: "/assets/groom-house.webp",
+      bride: "/assets/bride-house.webp",
     },
     dress: "Old clothes / Yellow & White attire",
     description:
@@ -121,7 +121,7 @@ export const weddingEvents: WeddingEvent[] = [
       "Wedding feast",
       "Valet parking available at Evara"
     ],
-    image: "/assets/evara-banquet.jpeg",
+    image: "/assets/evara-banquet.webp",
   },
 ];
 

@@ -67,8 +67,12 @@ export const EnvelopeIntro: React.FC<EnvelopeIntroProps> = ({ onComplete }) => {
         </div>
 
         <img
-          src="/assets/PandM.png"
+          src="/assets/PandM.webp"
           alt="P and M wax seal"
+          width="1295"
+          height="1215"
+          fetchPriority="high"
+          decoding="async"
           className="h-24 w-24 object-contain drop-shadow-[0_8px_12px_rgba(90,75,55,0.22)] transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28"
         />
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 
 import type { Side } from "./SideSelector";
 
@@ -38,8 +39,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
     >
       {/* The photo stays soft above the invitation; the lower wash removes it behind text. */}
       <div
-        className="absolute inset-y-0 -left-32 -right-32 pointer-events-none z-0 origin-top translate-x-16 -translate-y-72 scale-[1.02] bg-cover bg-[center_top] blur-[4px] sm:-translate-y-80 sm:scale-100"
-        style={{ backgroundImage: "url('/assets/home-hero.png')" }}
+        className="hero-backdrop absolute inset-y-0 -left-32 -right-32 pointer-events-none z-0 origin-top translate-x-16 -translate-y-72 scale-[1.02] bg-cover bg-[center_top] blur-[4px] sm:-translate-y-80 sm:scale-100"
+        style={{ backgroundImage: "url('/assets/home-hero.webp')" }}
       />
       <div
         className="absolute inset-0 pointer-events-none z-0"
@@ -49,10 +50,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         }}
       />
 
-      {/* ── Main Hero Content (Always 100% visible, no fading or disappearing) ── */}
-      <div className="relative z-10 mx-auto my-auto flex w-full max-w-3xl flex-col items-center py-4 text-center sm:py-6">
+      {/* ── Main Hero Content ── */}
+      <div className="hero-content relative z-10 mx-auto my-auto flex w-full max-w-3xl flex-col items-center py-4 text-center sm:py-6">
         {/* ── Sacred Auspicious Invocation: Lord Ganesha (Bhagwan Ji) ── */}
-        <div className="hero-invocation flex flex-col items-center justify-center mb-5 sm:mb-7">
+        <div className="hero-invocation hero-motion flex flex-col items-center justify-center mb-5 sm:mb-7">
           {/* Elegant Golden Ganesha Line-Art Motif */}
           <svg
             viewBox="0 0 64 64"
@@ -98,12 +99,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </div>
 
         {/* THE WEDDING OF */}
-        <p className="hero-kicker font-sans tracking-[0.34em] text-xs sm:text-sm uppercase text-[#6f4c3c] font-semibold mb-3 sm:mb-5">
+        <p className="hero-kicker hero-motion font-sans tracking-[0.34em] text-xs sm:text-sm uppercase text-[#6f4c3c] font-semibold mb-3 sm:mb-5">
           The Wedding Of
         </p>
 
         {/* Couple Names — Groom first if groom's side selected, Bride first if bride's side selected */}
-        <h1 className="hero-couple-names font-serif text-[#4a2528] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
+        <h1 className="hero-couple-names hero-motion font-serif text-[#4a2528] font-bold leading-tight flex items-baseline justify-center whitespace-nowrap select-none drop-shadow-2xs text-4xl sm:text-6xl md:text-7xl">
           <span>{side === "prateek" ? "Prateek" : "Mahek"}</span>
           <span className="font-great-vibes text-gold font-normal px-2.5 sm:px-4 text-[1.1em] align-baseline">
             &amp;
@@ -112,20 +113,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </h1>
 
         {/* Thin Gold Divider Line */}
-        <div className="hero-divider w-48 sm:w-64 h-[1.5px] bg-[#ae8038]/75 mx-auto my-5 sm:my-6" />
+        <div className="hero-divider hero-motion w-48 sm:w-64 h-[1.5px] bg-[#ae8038]/75 mx-auto my-5 sm:my-6" />
 
         {/* Date */}
-        <p className="font-serif text-xl sm:text-2xl text-[#53352d] tracking-wide font-medium mb-1.5">
+        <p className="hero-date hero-motion font-serif text-xl sm:text-2xl text-[#53352d] tracking-wide font-medium mb-1.5">
           December 12, 2026
         </p>
 
         {/* Venue */}
-        <p className="font-sans text-xs sm:text-sm tracking-[0.28em] uppercase text-[#795747] font-semibold">
+        <p className="hero-venue hero-motion font-sans text-xs sm:text-sm tracking-[0.28em] uppercase text-[#795747] font-semibold">
           Evara, Vasundhara
         </p>
 
         {/* ── 4 Countdown Timer Cards ── */}
-        <div className="hero-countdown flex items-center justify-center gap-2 sm:gap-3.5 mt-8 sm:mt-10">
+        <div className="hero-countdown hero-motion flex items-center justify-center gap-2 sm:gap-3.5 mt-8 sm:mt-10">
           {/* DAYS */}
           <div className="hero-countdown-card w-[4.6rem] h-[5.5rem] sm:w-24 sm:h-28 rounded-2xl bg-[#fffdfa]/95 border border-[#e8dfd3] shadow-lg flex flex-col items-center justify-center p-2 transition-transform hover:scale-103">
             <span className="font-serif text-2xl sm:text-4xl font-bold text-[#8b1e2d] leading-none">
@@ -168,6 +169,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ side = "mahek" }) => {
         </div>
       </div>
 
+      <button
+        type="button"
+        aria-label="Scroll down to explore our story"
+        onClick={() =>
+          document.getElementById("story")?.scrollIntoView({
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+              ? "auto"
+              : "smooth",
+          })
+        }
+        className="hero-scroll-cue relative z-10 inline-flex items-center gap-2 rounded-full border border-[#b98b45]/45 bg-[#fffdfa]/80 px-4 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#765a3d] shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-[#b98b45] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a4772e] sm:px-5 sm:py-2.5 sm:text-xs"
+      >
+        <span>Scroll to explore</span>
+        <ChevronDown className="h-4 w-4" aria-hidden="true" />
+      </button>
     </section>
   );
 };

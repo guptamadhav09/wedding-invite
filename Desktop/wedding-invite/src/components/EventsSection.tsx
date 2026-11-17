@@ -155,6 +155,8 @@ export const EventsSection: React.FC<EventsSectionProps> = ({
                         <img
                           src={eventImage}
                           alt={evt.name}
+                          loading="lazy"
+                          decoding="async"
                           className={`w-full h-48 object-cover hover:scale-105 transition-transform duration-500 ${
                             evt.key === "mehendi" ? "object-[center_20%]" : ""
                           }`}

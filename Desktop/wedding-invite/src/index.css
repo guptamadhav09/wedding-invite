@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   #hero .hero-countdown {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 
   #hero .hero-countdown-card {
@@ -167,34 +167,173 @@ section[id] {
 
 .scroll-reveal {
   opacity: 0;
-  transform: translate3d(0, 52px, 0) scale(0.95) rotateX(4deg);
-  transform-origin: center bottom;
-  perspective: 1200px;
-  filter: blur(3px);
+  transform: translate3d(0, 32px, 0) scale(0.985);
   transition:
-    opacity 800ms ease,
-    transform 1000ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    filter 800ms ease;
+    opacity 650ms ease,
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: opacity, transform;
 }
 
 .scroll-reveal.is-visible {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1) rotateX(0);
-  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
   will-change: auto;
 }
 
 .scroll-reveal--left:not(.is-visible) {
-  transform: translate3d(-64px, 24px, 0) scale(0.97) rotateY(-4deg);
+  transform: translate3d(-36px, 20px, 0) scale(0.985);
 }
 
 .scroll-reveal--right:not(.is-visible) {
-  transform: translate3d(64px, 24px, 0) scale(0.97) rotateY(4deg);
+  transform: translate3d(36px, 20px, 0) scale(0.985);
 }
 
 .scroll-reveal--zoom:not(.is-visible) {
-  transform: scale(0.88) rotateX(5deg);
+  transform: scale(0.94);
+}
+
+.hero-backdrop {
+  animation: hero-backdrop-drift 20s ease-in-out infinite alternate;
+}
+
+.hero-motion {
+  opacity: 0;
+  animation: hero-rise-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero-invocation {
+  animation-delay: 0ms;
+}
+
+.hero-kicker {
+  animation-delay: 100ms;
+}
+
+.hero-couple-names {
+  animation-delay: 180ms;
+}
+
+.hero-divider {
+  animation-delay: 260ms;
+}
+
+.hero-date {
+  animation-delay: 340ms;
+}
+
+.hero-venue {
+  animation-delay: 400ms;
+}
+
+.hero-countdown {
+  animation-delay: 460ms;
+}
+
+.hero-countdown-card {
+  opacity: 0;
+  animation: hero-rise-in 650ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero-countdown-card:nth-child(1) {
+  animation-delay: 480ms;
+}
+
+.hero-countdown-card:nth-child(2) {
+  animation-delay: 550ms;
+}
+
+.hero-countdown-card:nth-child(3) {
+  animation-delay: 620ms;
+}
+
+.hero-countdown-card:nth-child(4) {
+  animation-delay: 690ms;
+}
+
+.hero-scroll-cue {
+  opacity: 0;
+  animation: hero-rise-in 700ms 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero-scroll-cue svg {
+  animation: hero-chevron-bob 1.8s ease-in-out infinite;
+}
+
+.side-selector-content > * {
+  opacity: 0;
+  animation: hero-rise-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.side-selector-content > :nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.side-selector-content > :nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.side-selector-content > :nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.side-selector-content > :nth-child(4) {
+  animation-delay: 230ms;
+}
+
+.side-selector-content > :nth-child(5) {
+  animation-delay: 300ms;
+}
+
+.side-selector-content > :nth-child(6) {
+  animation-delay: 360ms;
+}
+
+.side-selector-content > :nth-child(7) {
+  animation-delay: 410ms;
+}
+
+.side-choice {
+  opacity: 0;
+  animation: hero-rise-in 700ms 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.side-choice__arrow {
+  transition: transform 250ms ease;
+}
+
+.side-choice:hover .side-choice__arrow,
+.side-choice:focus-visible .side-choice__arrow {
+  transform: translateX(3px);
+}
+
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-backdrop-drift {
+  from {
+    background-position: center top;
+  }
+  to {
+    background-position: center 10%;
+  }
+}
+
+@keyframes hero-chevron-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
 }
 
 .story-timeline-node {
@@ -251,14 +390,19 @@ section[id] {
   height: 100%;
   transform-origin: center;
   will-change: transform, opacity, filter;
+  animation: story-photo-pan 8s ease-in-out infinite alternate;
 }
 
 .story-slideshow__image--next {
-  animation: story-photo-next 750ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation:
+    story-photo-next 750ms cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    story-photo-pan 8s 750ms ease-in-out infinite alternate;
 }
 
 .story-slideshow__image--previous {
-  animation: story-photo-previous 750ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation:
+    story-photo-previous 750ms cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    story-photo-pan 8s 750ms ease-in-out infinite alternate;
 }
 
 .story-slideshow__frame:hover .story-slideshow__image {
@@ -355,13 +499,22 @@ section[id] {
   }
 }
 
+@keyframes story-photo-pan {
+  from {
+    object-position: 48% 46%;
+  }
+  to {
+    object-position: 52% 54%;
+  }
+}
+
 @media (max-width: 640px) {
   .scroll-reveal--left:not(.is-visible) {
-    transform: translate3d(-28px, 18px, 0) scale(0.98) rotateY(-2deg);
+    transform: translate3d(-24px, 16px, 0) scale(0.99);
   }
 
   .scroll-reveal--right:not(.is-visible) {
-    transform: translate3d(28px, 18px, 0) scale(0.98) rotateY(2deg);
+    transform: translate3d(24px, 16px, 0) scale(0.99);
   }
 
   .story-slideshow__frame {
@@ -386,6 +539,21 @@ section[id] {
     transform: none;
     transition: none;
     will-change: auto;
+  }
+
+  .hero-backdrop,
+  .hero-motion,
+  .hero-countdown-card,
+  .hero-scroll-cue,
+  .hero-scroll-cue svg,
+  .side-selector-content > *,
+  .side-choice {
+    opacity: 1;
+    animation: none;
+  }
+
+  .side-choice__arrow {
+    transition: none;
   }
 
   .story-slideshow__image {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 export type Side = "prateek" | "mahek";
 
@@ -13,7 +14,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
     <section className="relative flex min-h-[100svh] flex-col items-center justify-start overflow-x-clip bg-[#fbf8ed] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#513e30] sm:justify-center sm:py-10">
       <div className="absolute inset-0 pointer-events-none opacity-45 bg-[radial-gradient(circle_at_50%_42%,rgba(224,191,113,0.13),transparent_48%)]" />
 
-      <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
+      <div className="side-selector-content relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         <p className="font-tiro text-xl sm:text-3xl tracking-[0.24em] text-[#a4772e] font-semibold select-none">
           ॥ श्री गणेशाय नमः ॥
         </p>
@@ -27,8 +28,12 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
         </p>
 
         <img
-          src="/assets/mahekandprateek.png"
+          src="/assets/mahekandprateek.webp"
           alt="Mahek and Prateek"
+          width="433"
+          height="577"
+          fetchPriority="high"
+          decoding="async"
           className="mt-2 h-[clamp(10rem,38svh,15rem)] w-auto max-w-[92vw] object-contain drop-shadow-[0_16px_18px_rgba(83,58,40,0.12)] sm:mt-6 sm:h-[27rem]"
         />
 
@@ -50,7 +55,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
             hovered={hovered}
             setHovered={setHovered}
             onSelect={onSelect}
-            image="/assets/boy-icon.png"
+            image="/assets/boy-icon.webp"
             team="Team Groom"
             name="Prateek"
             relation="Groom's side"
@@ -60,7 +65,7 @@ export const SideSelector: React.FC<SideSelectorProps> = ({ onSelect }) => {
             hovered={hovered}
             setHovered={setHovered}
             onSelect={onSelect}
-            image="/assets/girl-icon.png"
+            image="/assets/girl-icon.webp"
             team="Team Bride"
             name="Mahek"
             relation="Bride's side"
@@ -98,7 +103,7 @@ const SideChoice: React.FC<SideChoiceProps> = ({
     onMouseEnter={() => setHovered(side)}
     onMouseLeave={() => setHovered(null)}
     aria-label={`Enter celebration as ${relation}`}
-    className={`group flex min-h-[7.5rem] min-w-0 flex-1 items-center gap-1.5 rounded-xl border px-1 py-2 text-left shadow-[0_3px_12px_rgba(93,65,40,0.05)] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#a4772e] sm:gap-3 sm:px-2 sm:py-2 ${
+  className={`side-choice group flex min-h-[7.5rem] min-w-0 flex-1 items-center gap-1.5 rounded-xl border px-1 py-2 text-left shadow-[0_3px_12px_rgba(93,65,40,0.05)] outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#a4772e] sm:gap-3 sm:px-2 sm:py-2 ${
       hovered === side
         ? "-translate-y-1 border-[#b98b45] bg-[#fffdf5] shadow-[0_8px_20px_rgba(93,65,40,0.13)]"
         : "border-[#e4d4bd] bg-[#fdf9ee]"
@@ -107,6 +112,8 @@ const SideChoice: React.FC<SideChoiceProps> = ({
     <img
       src={image}
       alt=""
+      loading="eager"
+      decoding="async"
       className="h-20 w-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-24 sm:w-20"
     />
     <span className="ml-0 min-w-0 sm:ml-6">
@@ -120,5 +127,9 @@ const SideChoice: React.FC<SideChoiceProps> = ({
         {relation}
       </span>
     </span>
+    <ArrowRight
+      className="side-choice__arrow ml-auto mr-1 h-4 w-4 shrink-0 text-[#a4772e] sm:mr-3 sm:h-5 sm:w-5"
+      aria-hidden="true"
+    />
   </button>
 );

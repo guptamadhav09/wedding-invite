@@ -4,22 +4,22 @@ import { ScrollReveal } from "./ScrollReveal";
 
 const storyPhotos = [
   {
-    src: "/assets/bride&groom3.jpeg",
+    src: "/assets/bride&groom3.webp",
     alt: "Illustration of Mahek and Prateek",
     className: "object-cover object-center",
   },
   {
-    src: "/assets/bride&groom2.png",
+    src: "/assets/bride&groom2.webp",
     alt: "Illustrated portrait of Mahek and Prateek together",
     className: "object-cover object-top",
   },
   {
-    src: "/assets/our-story.png",
+    src: "/assets/our-story.webp",
     alt: "Mahek and Prateek sharing a moment",
     className: "object-cover object-[center_65%]",
   },
   {
-    src: "/assets/bride&groom5.jpeg",
+    src: "/assets/bride&groom5.webp",
     alt: "Mahek and Prateek looking up at the night sky",
     className: "object-cover object-center",
   },
@@ -62,6 +62,11 @@ const StoryPhotoSlideshow: React.FC = () => {
           className={`story-slideshow__image story-slideshow__image--${direction} ${storyPhotos[activePhoto].className}`}
           loading="lazy"
           decoding="async"
+          onLoad={() => {
+            const nextPhoto = new Image();
+            nextPhoto.decoding = "async";
+            nextPhoto.src = storyPhotos[(activePhoto + 1) % storyPhotos.length].src;
+          }}
         />
         <button
           type="button"
